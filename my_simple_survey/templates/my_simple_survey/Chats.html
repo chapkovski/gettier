@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+{% load otreechat %}
+
+{% block title %}
+    Welcome To Your Chat
+{% endblock %}
+
+{% block content %}
+
+    <p>You have entered a chat room with someone who disagreed with your answer to the "Gettier Problem". Use the chat below to try to convince this person that your position is correct.  The question prompt is reproduced below for your convenience.</p>
+    <p> "Suppose that the clock on campus (which keeps accurate time and is well maintained) stopped working at 11:56pm last night, and has yet to be repaired. On my way to my noon class, exactly twelve hours later, I glance at the clock and form the belief that the time is 11:56. My belief is true, of course, since the time is indeed 11:56. And my belief is justified, as I have no reason to doubt that the clock is working, and I cannot be blamed for basing beliefs about the time on what the clock says. Nonetheless, it seems evident that I do not know that the time is 11:56. After all, if I had walked past the clock a bit earlier or a bit later, I would have ended up with a false belief rather than a true one. Do I know the time?"</p>
+{% chat %}
+
+    {% next_button %}
+{% endblock %}
+
+

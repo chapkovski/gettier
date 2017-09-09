@@ -1,0 +1,14 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Please Complete This Survey
+{% endblock %}
+
+{% block content %}
+
+    {% formfield player.isItStillKnowledge with label="Do you think that the Gettier case represents knowledge?" %}
+
+    {% next_button %}
+
+{% endblock %}
