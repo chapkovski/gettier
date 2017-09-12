@@ -26,4 +26,9 @@ class Group(BaseGroup):
 
 class Player (BasePlayer):
     isItStillKnowledge = models.BooleanField()
+    bonus = models.CurrencyField()
+
+    # give bonus payment to remaining participants
+    def bonus_method(self):
+        self.bonus = c(0.25)
 
