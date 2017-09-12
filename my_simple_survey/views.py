@@ -9,8 +9,8 @@ class GroupingWaitPage(WaitPage):
 
     def get_players_for_group(self, waiting_players):
 
-        true_players = [p for p in waiting_players if p.participant.vars['isItKnowledge']]
-        false_players = [p for p in waiting_players if not p.participant.vars['isItKnowledge']]
+        true_players = [p for p in waiting_players if p.participant.vars['isItKnowledge'] == 'True']
+        false_players = [p for p in waiting_players if p.participant.vars['isItKnowledge'] == 'False']
         if len(true_players) >= 1 and len(false_players) >= 1:
             # this is a Python "list slice"
             return true_players[:1] + false_players[:1]

@@ -1,7 +1,10 @@
 from otree.api import BasePlayer
-
+from otree.api import (
+    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
+    Currency as c, currency_range
+)
 from .pages import ExtendedPage
-import json
+
 
 def create_player_model_for_survey(module, survey_definitions, base_cls=None):
     """
@@ -9,7 +12,6 @@ def create_player_model_for_survey(module, survey_definitions, base_cls=None):
     Parameter survey_definitions is a list, where each list item is a survey definition for a single page.
     Each survey definition for a single page consists of list of field name, question definition tuples.
     Each question definition has a "field" (oTree model field class) and a "text" (field label).
-
     Returns the dynamically created player model with the respective fields (class attributes).
     """
     if base_cls is None:
@@ -20,11 +22,8 @@ def create_player_model_for_survey(module, survey_definitions, base_cls=None):
         '_survey_defs': survey_definitions,
     }
 
-    # collect fields
-
-    model_attrs['module'] = 'gettier_init.models'
-    model_attrs['_survey_defs'] = survey_definitions
-
+    for field_name, qdef in survey_definitions['survey_fields']:
+                model_attrs[field_name] = qdef['field']
 
 
     # dynamically create model
@@ -60,7 +59,7 @@ class SurveyPage(ExtendedPage):
     @classmethod
     def setup_survey(cls, player_cls, page_idx):
         """Setup a survey page using model class <player_cls> and survey definitions for page <page_idx>."""
-        survey_defs = _SurveyModelMixin()
+        survey_defs = player_cls.get_survey_definitions()
         cls.form_model = player_cls
         cls.page_title = survey_defs['page_title']
 

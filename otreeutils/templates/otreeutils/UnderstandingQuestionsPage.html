@@ -24,16 +24,14 @@
     {% next_button %}
 </div>
 
-
 <div class="fake-next">
     <input class="btn btn-primary btn-large btn-primary" type="button" value="Next"
-           onclick="checkUnderstandingQuestionsForm()
-            ">
+           onclick="checkUnderstandingQuestionsForm()">
 </div>
+
 <script>
 $(function() {
     setupUnderstandingQuestionsForm({{ n_questions }}, "{{ hint_empty }}", "{{ form_field_n_wrong_attempts }}", {{ set_correct_answers }});
-
 });
 </script>
 {% endblock %}

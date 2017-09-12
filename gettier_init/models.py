@@ -24,6 +24,7 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         self.session.vars['knows'] = 0
         self.session.vars['notKnows'] = 0
+        self.session.vars['isExcess'] = False
 
 
 class Group(BaseGroup):
@@ -31,18 +32,18 @@ class Group(BaseGroup):
 
 
 GETTIER_CHOICES = (
-    ('yes', 'Yes, she really knows it'),
-    ('no', 'No, she only believes it'),
+    ('True', 'Yes, she really knows it'),
+    ('False', 'No, she only believes it'),
 )
 
 SURVEY_DEFINITIONS = (
     {
         'page_title': 'Gettier Question',
         'survey_fields': [
-            {   # field name (which will also end up in your "Player" class and hence in your output data)
+            ('isItKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
                 'text': 'Is the Gettier case knowledge?',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
-            },
+            }),
         ]
     }
 )

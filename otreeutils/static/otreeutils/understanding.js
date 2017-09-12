@@ -10,12 +10,29 @@ function checkUnderstandingQuestionsForm() {
         var input_field = $('#' + input_id);
         var label = $('label[for=' + input_id + ']');
         var v = input_field.val();
-       // self.isItKnowledge = v;
         var correct = $('#id_q_correct_' + q_idx).val();
 
-        input_field.removeClass('error').addClass('ok');
-        label.removeClass('error').addClass('ok');
-        n_correct++;
+        if (v == correct) {
+            input_field.removeClass('error').addClass('ok');
+            label.removeClass('error').addClass('ok');
+            n_correct++;
+        } else {
+            input_field.removeClass('ok').addClass('error');
+            label.removeClass('ok').addClass('error');
+
+            var input_parent = input_field.parent();
+            if (input_parent.find('.hint').length == 0) {
+                var hint_text;
+                if (v == '') {
+                    hint_text = HINT_TEXT_EMPTY;
+                } else {
+                    hint_text = $('#id_q_hint_' + q_idx).val();
+                }
+
+                var hint = '<p class="hint">' + hint_text + '</p>';
+                input_parent.append(hint);
+            }
+        }
     }
 
     if (n_correct == N_QUESTIONS) {
@@ -54,3 +71,4 @@ function setupUnderstandingQuestionsForm(n_questions, hit_text_empty, field_n_wr
             par.find('.hint').remove();
         });
     }
+}
