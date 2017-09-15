@@ -105,22 +105,24 @@ ROOMS = [
 
 
 mturk_hit_settings = {
-    'keywords': ['bonus', 'study'],
+    'keywords': ['bonus', 'study', 'survey', 'experiment'],
     'title': 'Psychology Experiment',
     'description': 'Read a short paragraph and answer a question. Possible to get $0.25 bonus pay if selected. Without bonus: total expected time = 1 minute. With bonus, total expected time: 3 minutes.',
     'frame_height': 500,
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 10,
     'expiration_hours': 0.0833333 , # 5 minutes
-    #'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
+   # 'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
     'qualification_requirements': [
         {
             'QualificationTypeId': "00000000000000000071",
             'Comparator': "EqualTo",
             'LocaleValues': [{
                 'Country': "US",
-            }]
-        },
+            }],
+    #        'QualificationTypeId': "YOUR_QUALIFICATION_ID_HERE",
+    #        'Comparator': "DoesNotExist",
+        }
     ]
 }
 
@@ -132,7 +134,8 @@ mturk_hit_settings = {
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.00,
-    'participation_fee': 0.15,
+   # 'participation_fee': 0.15,
+    'participation_fee': 0.00,
     'doc': "",
     'mturk_hit_settings': mturk_hit_settings,
 }
