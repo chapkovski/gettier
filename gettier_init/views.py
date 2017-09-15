@@ -4,7 +4,7 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 from otreeutils.surveys import SurveyPage, setup_survey_pages
 
-class BackgroundPage(Page):
+class Background(Page):
     pass
 
 class SurveyPage1(SurveyPage):
@@ -38,7 +38,7 @@ last_page = [
 setup_survey_pages(models.Player, survey_pages)
 
 page_sequence = [
-    BackgroundPage,
+    Background,
 ]
 
 page_sequence.extend(survey_pages)
