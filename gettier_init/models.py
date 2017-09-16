@@ -39,7 +39,7 @@ GETTIER_CHOICES = (
 GENDER_CHOICES = (
     ('Male', 'Male'),
     ('Female', 'Female'),
-    ('Other', 'Other')
+    ('Other', 'Other'),
 )
 
 RACE_CHOICES = (
@@ -63,6 +63,7 @@ EDUCATION_CHOICES = (
     ('Associate', 'Master’s degree'),
     ('Professional', 'Professional degree'),
     ('Doctorate', 'Doctorate degree'),
+    ('Other', 'Other'),
 )
 
 SURVEY_DEFINITIONS = (
@@ -76,7 +77,7 @@ SURVEY_DEFINITIONS = (
         ]
     },
     {
-        'page_title': 'DemographicInfo',
+        'page_title': 'Demographic Info',
         'survey_fields': [
             ('age',
              {  # field name (which will also end up in your "Player" class and hence in your output data)
