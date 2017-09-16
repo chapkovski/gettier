@@ -1,8 +1,5 @@
 from otree.api import BasePlayer
-from otree.api import (
-    models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
-    Currency as c, currency_range
-)
+
 from .pages import ExtendedPage
 
 
@@ -21,10 +18,11 @@ def create_player_model_for_survey(module, survey_definitions, base_cls=None):
         '__module__': module,
         '_survey_defs': survey_definitions,
     }
+
+    # collect fields
     for survey_page in survey_definitions:
         for field_name, qdef in survey_page['survey_fields']:
-                model_attrs[field_name] = qdef['field']
-
+            model_attrs[field_name] = qdef['field']
 
     # dynamically create model
     model_cls = type('Player', (base_cls, _SurveyModelMixin), model_attrs)
@@ -59,16 +57,14 @@ class SurveyPage(ExtendedPage):
     @classmethod
     def setup_survey(cls, player_cls, page_idx):
         """Setup a survey page using model class <player_cls> and survey definitions for page <page_idx>."""
-        survey_defs = player_cls.get_survey_definitions()
+        survey_defs = player_cls.get_survey_definitions()[page_idx]
         cls.form_model = player_cls
-        for survey_page in survey_defs:
-            cls.page_title = survey_page
+        cls.page_title = survey_defs['page_title']
 
         cls.form_fields = []
-        for survey_page in survey_defs:
-            for field_name, qdef in survey_page['survey_fields']:
-                cls.field_labels[field_name] = qdef['text']
-                cls.form_fields.append(field_name)
+        for field_name, qdef in survey_defs['survey_fields']:
+            cls.field_labels[field_name] = qdef['text']
+            cls.form_fields.append(field_name)
 
     def get_context_data(self, **kwargs):
         ctx = super(SurveyPage, self).get_context_data(**kwargs)

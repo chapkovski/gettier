@@ -4,11 +4,14 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 from otreeutils.surveys import SurveyPage, setup_survey_pages
 
-class DemographicInfo (SurveyPage):
+
+class DemographicInfo(SurveyPage):
     pass
+
 
 class SurveyPage1(SurveyPage):
     pass
+
 
 class ExitPage (Page):
       def is_displayed(self):

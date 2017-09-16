@@ -68,37 +68,33 @@ EDUCATION_CHOICES = (
 
 SURVEY_DEFINITIONS = (
     {
+        'page_title': 'Please answer the following demographic questions:',
+        'survey_fields': [
+            ('age', {   # field name (which will also end up in your "Player" class and hence in your output data)
+                 'text': 'How old are you?',  # survey question
+                 'field': models.CharField(blank=True), # put in free response slot
+             }),
+            ('gender', {  # field name (which will also end up in your "Player" class and hence in your output data)
+                 'text': 'What is your gender?',  # survey question
+                 'field': models.CharField(choices=GENDER_CHOICES),  # put in free response slot?
+             }),
+            ('race', {  # field name (which will also end up in your "Player" class and hence in your output data)
+                 'text': 'What is your race?',  # survey question
+                 'field': models.CharField(choices=RACE_CHOICES),  # put in free response slot?
+             }),
+            ('education', {  # field name (which will also end up in your "Player" class and hence in your output data)
+                 'text': 'What is your highest level of education?',  # survey question
+                 'field': models.CharField(choices=EDUCATION_CHOICES),  # put in free response slot?
+             }),
+        ]
+    },
+    {
         'page_title': 'Gettier Question',
         'survey_fields': [
             ('isItKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
                 'text': 'Is the Gettier case knowledge?',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
-        ]
-    },
-    {
-        'page_title': 'Demographic Info',
-        'survey_fields': [
-            ('age',
-             {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'How old are you?',  # survey question
-                 'field': models.CharField(blank=True), # put in free response slot
-             }),
-            ('gender',
-             {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your gender?',  # survey question
-                 'field': models.CharField(choices=GENDER_CHOICES),  # put in free response slot?
-             }),
-            ('race',
-             {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your race?',  # survey question
-                 'field': models.CharField(choices=RACE_CHOICES),  # put in free response slot?
-             }),
-            ('education',
-             {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your highest level of education?',  # survey question
-                 'field': models.CharField(choices=EDUCATION_CHOICES),  # put in free response slot?
-             }),
         ]
     },
 )
