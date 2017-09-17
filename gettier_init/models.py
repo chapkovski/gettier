@@ -32,8 +32,8 @@ class Group(BaseGroup):
 
 
 GETTIER_CHOICES = (
-    ('True', 'Yes, she really knows it'),
-    ('False', 'No, she only believes it'),
+    ('True', 'Yes, he really knows it'),
+    ('False', 'No, he only believes it'),
 )
 
 GENDER_CHOICES = (

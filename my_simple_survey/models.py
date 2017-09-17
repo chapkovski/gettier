@@ -27,8 +27,8 @@ class Group(BaseGroup):
 
 
 GETTIER_CHOICES = (
-        ('True', 'Yes, she really knows it'),
-        ('False', 'No, she only believes it'),
+        ('True', 'Yes, he really knows it'),
+        ('False', 'No, he only believes it'),
     )
 
 YESNO_CHOICES = (
@@ -44,7 +44,7 @@ SURVEY_DEFINITIONS = (
         'page_title': 'Please answer the following question:',
         'survey_fields': [
             ('isItStillKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Is the Gettier case knowledge?',   # survey question
+                'text': 'Does Bob know that Jill drives an American car?',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
             ('reason', {   # field name (which will also end up in your "Player" class and hence in your output data)
