@@ -2,6 +2,7 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
+from otreeutils.surveys import create_player_model_for_survey
 
 
 author = 'Your name here'
@@ -24,11 +25,39 @@ class Group(BaseGroup):
     pass
 
 
-class Player (BasePlayer):
-    isItStillKnowledge = models.BooleanField()
-    bonus = models.CurrencyField()
 
-    # give bonus payment to remaining participants
-    def bonus_method(self):
-        self.bonus = c(0.25)
+GETTIER_CHOICES = (
+        ('True', 'Yes, she really knows it'),
+        ('False', 'No, she only believes it'),
+    )
 
+YESNO_CHOICES = (
+        ('True', 'Yes, I have read a story similar to this one before.'),
+        ('False', 'No, I have never read a story similar to this one.'),
+    )
+
+
+# if isItStillKnowledge == isItKnowledge, ask them why they changed their mind; else ask why they didn't change their minds
+
+SURVEY_DEFINITIONS = (
+    {
+        'page_title': 'Please answer the following question:',
+        'survey_fields': [
+            ('isItStillKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
+                'text': 'Is the Gettier case knowledge?',   # survey question
+                'field': models.CharField(choices=GETTIER_CHOICES),
+            }),
+            ('reason', {   # field name (which will also end up in your "Player" class and hence in your output data)
+                'text': 'Please explain in 2-3 lines why you did or did not change your initial answer to this question',   # survey question
+                'field': models.CharField(blank=True),
+            }),
+            ('experience',{
+                'text': 'Have you ever read a story like the one in this experiment in any other context before?',   # survey question
+                'field': models.CharField(choices=YESNO_CHOICES),
+            }),
+        ]
+    },
+)
+
+
+Player = create_player_model_for_survey('my_simple_survey.models', SURVEY_DEFINITIONS)

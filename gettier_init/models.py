@@ -89,10 +89,10 @@ SURVEY_DEFINITIONS = (
         ]
     },
     {
-        'page_title': 'Gettier Question',
+        'page_title': ' Bob has a friend, Jill, who has driven a Buick for many years. Bob therefore thinks that Jill drives an American car. He is not aware, however, that her Buick has recently been stolen, and he is also not aware that Jill has replaced it with a Pontiac, which is a different kind of American car.',
         'survey_fields': [
             ('isItKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Is the Gettier case knowledge?',   # survey question
+                'text': 'Does Bob know that Jill drives an American car?',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
         ]

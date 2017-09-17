@@ -2,7 +2,7 @@ from otree.api import Currency as c, currency_range
 from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
-
+from otreeutils.surveys import SurveyPage, setup_survey_pages
 
 class GroupingWaitPage(WaitPage):
     group_by_arrival_time = True
@@ -24,12 +24,19 @@ class Chats(Page):
     pass
 
 
-class EndSurvey(Page):
-    form_model = models.Player
-    form_fields = ['isItStillKnowledge']
+class EndSurvey(SurveyPage):
+    pass
+
+
+survey_pages = [
+    EndSurvey,
+]
+
+setup_survey_pages(models.Player, survey_pages)
 
 page_sequence = [
     GroupingWaitPage,
     Chats,
-    EndSurvey
 ]
+
+page_sequence.extend(survey_pages)
