@@ -1,0 +1,15 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Please read the following text carefully.
+{% endblock %}
+
+{% block content %}
+    <p> <b> Below you will read a few sentences describing a scenario. Please consider it carefully. On the next page, you will be asked to answer the question presented in bold at the end of this paragraph. </b> </p>
+
+    <p> <br> Bob has a friend, Jill, who has driven a Buick for many years. Bob therefore thinks that Jill drives an American car. He is not aware, however, that her Buick has recently been stolen, and he is also not aware that Jill has replaced it with a Pontiac, which is a different kind of American car. <br> <br> <b> Does Bob know that Jill drives an American car? <br> </b> </p>
+
+    <br>
+    {% next_button %}
+{% endblock %}

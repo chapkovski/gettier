@@ -32,8 +32,8 @@ class Group(BaseGroup):
 
 
 GETTIER_CHOICES = (
-    ('True', 'Yes, he really knows it'),
-    ('False', 'No, he only believes it'),
+    ('True', 'Yes, he knows it'),
+    ('False', 'No, he does not know it'),
 )
 
 GENDER_CHOICES = (
@@ -66,6 +66,11 @@ EDUCATION_CHOICES = (
     ('Other', 'Other'),
 )
 
+YESNO_CHOICES = (
+    ('True', 'Yes'),
+    ('True', 'No'),
+)
+
 SURVEY_DEFINITIONS = (
     {
         'page_title': 'Please answer the following demographic questions:',
@@ -86,13 +91,17 @@ SURVEY_DEFINITIONS = (
                  'text': 'What is your highest level of education?',  # survey question
                  'field': models.CharField(choices=EDUCATION_CHOICES),  # put in free response slot?
              }),
+            ('movingOn', {  # field name (which will also end up in your "Player" class and hence in your output data)
+                'text': 'Select "Yes" for this question:',   # survey question
+                'field': models.CharField(choices=YESNO_CHOICES),
+             }),
         ]
     },
     {
-        'page_title': ' Bob has a friend, Jill, who has driven a Buick for many years. Bob therefore thinks that Jill drives an American car. He is not aware, however, that her Buick has recently been stolen, and he is also not aware that Jill has replaced it with a Pontiac, which is a different kind of American car.',
+        'page_title': 'Does Bob know that Jill drives an American car?',
         'survey_fields': [
             ('isItKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Does Bob know that Jill drives an American car?',   # survey question
+                'text': '',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
         ]

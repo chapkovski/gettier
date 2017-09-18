@@ -8,6 +8,8 @@ from otreeutils.surveys import SurveyPage, setup_survey_pages
 class DemographicInfo(SurveyPage):
     pass
 
+class Vignette(Page):
+    pass
 
 class SurveyPage1(SurveyPage):
     pass
@@ -27,7 +29,12 @@ class ExitPage (Page):
             self.session.vars['notKnows'] += 1
             if self.session.vars['notKnows'] - self.session.vars['knows'] > 2:
                 self.session.vars['isExcess'] = True
-        return self.session.vars['isExcess']
+        if self.session.vars['isExcess']:
+            self.participant.vars['movingOn'] = 'False'
+            return True
+        else:
+            self.participant.vars['movingOn'] = 'True'
+            return False
 
 
 survey_pages = [
@@ -35,8 +42,21 @@ survey_pages = [
     SurveyPage1,
 ]
 
+survey_pages1 = [
+    DemographicInfo,
+]
+
+
+survey_pages2 = [
+    SurveyPage1,
+]
+
 last_page = [
     ExitPage,
+]
+
+vignette_page = [
+    Vignette,
 ]
 
 setup_survey_pages(models.Player, survey_pages)
@@ -44,5 +64,7 @@ setup_survey_pages(models.Player, survey_pages)
 page_sequence = [
 ]
 
-page_sequence.extend(survey_pages)
+page_sequence.extend(survey_pages1)
+page_sequence.extend(vignette_page)
+page_sequence.extend(survey_pages2)
 page_sequence.extend(last_page)

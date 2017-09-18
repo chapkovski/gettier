@@ -27,8 +27,8 @@ class Group(BaseGroup):
 
 
 GETTIER_CHOICES = (
-        ('True', 'Yes, he really knows it'),
-        ('False', 'No, he only believes it'),
+        ('True', 'Yes, he knows it'),
+        ('False', 'No, he does not know it'),
     )
 
 YESNO_CHOICES = (

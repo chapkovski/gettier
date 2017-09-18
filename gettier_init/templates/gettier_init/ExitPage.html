@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Thank You For Completing The Survey</title>
-</head>
-<body>
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
 
+{% block title %}
+   Thank You For Completing The Survey
+{% endblock %}
+
+{% block content %}
 <p> You did not qualify to participate in the paid bonus section of this study and so your participation is complete. Thank you for your time!</p>
 
-</body>
-</html>
+
+<br>
+    {% next_button %}
+{% endblock %}

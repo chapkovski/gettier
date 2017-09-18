@@ -5,6 +5,7 @@ from .models import Constants
 from otreeutils.surveys import SurveyPage, setup_survey_pages
 
 class GroupingWaitPage(WaitPage):
+
     group_by_arrival_time = True
 
     def get_players_for_group(self, waiting_players):
@@ -16,15 +17,19 @@ class GroupingWaitPage(WaitPage):
             return true_players[:1] + false_players[:1]
 
     def is_displayed(self):
-        return self.round_number == 1
+        return self.round_number == 1 and self.participant.vars['movingOn'] == 'True'
 
 
 class Chats(Page):
+    def is_displayed(self):
+        return self.participant.vars['movingOn'] == 'True'
     timeout_seconds = 120
     pass
 
 
 class EndSurvey(SurveyPage):
+    def is_displayed(self):
+        return self.participant.vars['movingOn'] == 'True'
     pass
 
 
