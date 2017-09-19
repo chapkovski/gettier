@@ -49,7 +49,7 @@ AUTH_LEVEL = 'STUDY'
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+ADMIN_PASSWORD = 'carrie_pass;'
 
 
 # setting for integration with AWS Mturk
