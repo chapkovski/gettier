@@ -112,7 +112,9 @@ mturk_hit_settings = {
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 5,
     'expiration_hours': 5 , # 5 hours
-    'grant_qualification_id': '39F7EDZXHQY8D431FWBNUGXVCPX409',# to prevent retakes
+    'grant_qualification_id': '3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG',# to prevent retakes
+    # 39F7EDZXHQY8D431FWBNUGXVCPX409 for real surveys
+    # 3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG for sandbox
     'qualification_requirements': [
         {
             'QualificationTypeId': "00000000000000000071",
@@ -120,7 +122,7 @@ mturk_hit_settings = {
             'LocaleValues': [{'Country': "US",  }],
         },
         {
-            'QualificationTypeId': "39F7EDZXHQY8D431FWBNUGXVCPX409",
+            'QualificationTypeId': "3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG",
             'Comparator': "DoesNotExist",
         },
     ]
