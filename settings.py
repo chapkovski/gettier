@@ -113,17 +113,17 @@ mturk_hit_settings = {
     'minutes_allotted_per_assignment': 5,
     'expiration_hours': 5 , # 5 hours
    # 'grant_qualification_id': 'YOUR_QUALIFICATION_ID_HERE',# to prevent retakes
-    'qualification_requirements': [
-        {
-            'QualificationTypeId': "00000000000000000071",
-            'Comparator': "EqualTo",
-            'LocaleValues': [{
-                'Country': "US",
-            }],
+   # 'qualification_requirements': [
+    #    {
+    #        'QualificationTypeId': "00000000000000000071",
+    #        'Comparator': "EqualTo",
+    #        'LocaleValues': [{
+    #            'Country': "US",
+    #        }],
     #        'QualificationTypeId': "YOUR_QUALIFICATION_ID_HERE",
     #        'Comparator': "DoesNotExist",
-        }
-    ]
+     #   }
+   # ]
 }
 
 
