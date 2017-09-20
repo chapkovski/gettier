@@ -107,7 +107,7 @@ ROOMS = [
 mturk_hit_settings = {
     'keywords': ['bonus', 'study', 'survey', 'experiment'],
     'title': 'Psychology Experiment',
-    'description': 'Read a short paragraph and answer a question. Possible to get $0.25 bonus pay if selected. Without bonus: total expected time = 1 minute. With bonus, total expected time: 3 minutes.',
+    'description': 'Read a short paragraph and answer a question. Possible teo get $0.25 bonus pay if selected. Without bonus: total expected time = 1 minute. With bonus, total expected time: 3 minutes.',
     'frame_height': 500,
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 5,
