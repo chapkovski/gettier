@@ -129,7 +129,7 @@ mturk_hit_settings = {
         {  # qualification 3: completed at least 99 hits (same for live and sandbox)
             'QualificationTypeId': "00000000000000000040",
             'Comparator': "GreaterThanOrEqualTo",
-            'IntegerValue': 99,
+            'IntegerValues': 99,
         },
 
     ]
