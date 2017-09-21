@@ -107,17 +107,17 @@ ROOMS = [
 mturk_hit_settings = {
     'keywords': ['bonus', 'study', 'survey', 'experiment'],
     'title': 'Psychology Experiment',
-    'description': 'Read a short paragraph and answer a question. Possible teo get $0.25 bonus pay if selected. Without bonus: total expected time = 1 minute. With bonus, total expected time: 3 minutes.',
+    'description': 'Read a short paragraph and answer a question. Possible to get $0.25 bonus pay if selected. Without bonus: total expected time = 1 minute. With bonus, total expected time: 3 minutes.',
     'frame_height': 500,
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 5,
     'expiration_hours': 5 , # 5 hours
-    'grant_qualification_id': '39F7EDZXHQY8D431FWBNUGXVCPX409', # to prevent retakes
+    'grant_qualification_id': '3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG', # to prevent retakes
     # 39F7EDZXHQY8D431FWBNUGXVCPX409 for real surveys
     # 3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG for sandbox
     'qualification_requirements': [
         {
-            'QualificationTypeId': "39F7EDZXHQY8D431FWBNUGXVCPX409",
+            'QualificationTypeId': "3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG",
             'Comparator': "DoesNotExist",
         },
     ]
