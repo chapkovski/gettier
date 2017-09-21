@@ -17,7 +17,10 @@ class GroupingWaitPage(WaitPage):
             return true_players[:1] + false_players[:1]
 
     def is_displayed(self):
+        if self.participant.vars['movingOn'] == 'True':
+            self.player.payoff = 0.25
         return self.round_number == 1 and self.participant.vars['movingOn'] == 'True'
+
 
 
 class Chats(Page):
