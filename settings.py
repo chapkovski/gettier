@@ -124,11 +124,12 @@ mturk_hit_settings = {
         { # qualification 2: US only (same for live and sandbox)
             'QualificationTypeId': "00000000000000000071",
             'Comparator': "EqualTo",
-            'LocaleValues': [{'Country': "US"}]
+            'LocaleValues': [{'Country': "US"}],
         },
         {  # qualification 3: completed at least 99 hits (same for live and sandbox)
-            'QualificationTypeId': "00000000000000000099",
+            'QualificationTypeId': "00000000000000000040",
             'Comparator': "GreaterThanOrEqualTo",
+            'IntegerValue': 99,
         },
 
     ]
