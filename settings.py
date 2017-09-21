@@ -112,12 +112,12 @@ mturk_hit_settings = {
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 5,
     'expiration_hours': 5 , # 5 hours
-    # 'grant_qualification_id': '39F7EDZXHQY8D431FWBNUGXVCPX409', # uncomment to prevent retakes (live)
+    # 'grant_qualification_id': '3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3', # uncomment to prevent retakes (live)
      'grant_qualification_id': '3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG', # uncomment to prevent retakes (sandbox)
 
     'qualification_requirements': [
         { # qualification 1: prevent retakes
-            # 'QualificationTypeId': "39F7EDZXHQY8D431FWBNUGXVCPX409", # uncomment for live version
+            # 'QualificationTypeId': "3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3", # uncomment for live version
             'QualificationTypeId': "3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG", # uncomment for sandbox version
             'Comparator': "DoesNotExist",
         },

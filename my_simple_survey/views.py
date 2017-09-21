@@ -23,8 +23,11 @@ class GroupingWaitPage(WaitPage):
 
 class Chats(Page):
     def is_displayed(self):
+
+        # award bonus to anyone who makes it this far
         if self.participant.vars['movingOn'] == 'True':
             self.player.payoff = 0.25
+
         return self.participant.vars['movingOn'] == 'True'
     timeout_seconds = 120
     pass
