@@ -54,8 +54,8 @@ GENDER_CHOICES = (
 RACE_CHOICES = (
     ('White', 'White'),
     ('Latino', 'Latino'),
-    ('Black', 'AA'),
-    ('Native American', 'NativeA'),
+    ('Black', 'African American'),
+    ('Native American', 'Native American'),
     ('Asian or Pacific Islander', 'Asian'),
     ('Other', 'Other'),
 )
@@ -90,7 +90,7 @@ SURVEY_DEFINITIONS = (
         'page_title': ' ',
         'survey_fields': [
             ('isItStillKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': ' ',   # survey question
+                'text': 'Does Bob know that Jill drives an American car',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
             ('reason', {   # field name (which will also end up in your "Player" class and hence in your output data)

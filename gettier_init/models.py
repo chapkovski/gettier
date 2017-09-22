@@ -42,7 +42,9 @@ GETTIER_CHOICES = (
 
 SURVEY_DEFINITIONS = (
     {
-        'page_title': 'Does Bob know that Jill drives an American car?',
+        #'page_title': 'Does Bob know that Jill drives an American car?',
+        #LEAVE PAGE TITLE BLANK
+        'page_title': ' ',
         'survey_fields': [
             ('isItKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
                 'text': '',   # survey question
