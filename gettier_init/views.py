@@ -63,7 +63,7 @@ setup_survey_pages(models.Player, survey_pages)
 page_sequence = [
 ]
 
-page_sequence.extend(survey_pages1)
 page_sequence.extend(vignette_page)
 page_sequence.extend(survey_pages2)
+page_sequence.extend(survey_pages1)
 page_sequence.extend(last_page)
