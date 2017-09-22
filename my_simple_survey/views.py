@@ -42,11 +42,19 @@ class DemographicInfo(SurveyPage):
     pass
 
 
+class ExitPage(Page):
+    def is_displayed(self):
+        return self.participant.vars['movingOn'] == 'False'
+
+
 survey_pages = [
     EndSurvey,
     DemographicInfo,
 ]
 
+last_page = [
+    ExitPage,
+]
 setup_survey_pages(models.Player, survey_pages)
 
 page_sequence = [
@@ -55,3 +63,4 @@ page_sequence = [
 ]
 
 page_sequence.extend(survey_pages)
+page_sequence.extend(last_page)
