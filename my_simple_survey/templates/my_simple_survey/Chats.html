@@ -8,21 +8,37 @@
 
 {% block content %}
 
-    <p> You can now chat with someone who gave the opposite answer to you.</p>
-    <p> Player 1: please begin by explaining to Player 2, why you answered as you did.
-        Use the chat below to try to convince Player 2 that your position is the correct one.
-        The question prompt is reproduced below for your convenience.</p>
-    <p> Player 2: After Player 1 tries to convince you of their response,
-        you should try to convince them of your response. </p>
-    <p> Both players will have the opportunity to revise
-        their first responses to the case after chatting.
-        You have up to 4 minutes to chat.</p>
-    <p>
-    </p>
-    <p>  Here is the scenario again for your reference:
-    </p>
-    <p> "Suppose that the clock on campus (which keeps accurate time and is well maintained) stopped working at 11:56pm last night, and has yet to be repaired. On my way to my noon class, exactly twelve hours later, I glance at the clock and form the belief that the time is 11:56. My belief is true, of course, since the time is indeed 11:56. And my belief is justified, as I have no reason to doubt that the clock is working, and I cannot be blamed for basing beliefs about the time on what the clock says. Nonetheless, it seems evident that I do not know that the time is 11:56. After all, if I had walked past the clock a bit earlier or a bit later, I would have ended up with a false belief rather than a true one. Do I know the time?"</p>
+    <p> You can now chat with another "player" who gave the opposite answer to you.
+        Use the chat below to try to convince the other player that your position is
+        the correct one.
+        <br>
+        Player 1, please begin by explaining to Player 2 why you answered as you did.
+        <br> 
+        Player 2: After Player 1 has attempted to change your mind, you should try
+        to convince Player 2 of your response.
+        <br>
+        You will both be given the opportunity to change your minds after chatting.
+        <br>
+        After 4 minutes, you will be forced to complete the study. It is possible
+        that you will not need all of that time to chat, but please ensure that
+        you take enough time to write clearly.
+    <br>
+    Here is the scenario again for your reference:
+   <br>
+    <p style="border:2px; border-style:solid; border-color:#000000; padding: 1em;">
+           <br>
+           Bob has a friend, Jill, who has driven a Buick for many years.
+           Bob therefore thinks that Jill drives an American car. He is not aware,
+           however, that her Buick has recently been stolen, and he is also not
+           aware that Jill has replaced it with a Pontiac, which is a different
+           kind of American car.
+           <br><br>
+           <b>
+               Does Bob know that Jill drives an American car? <br>
+           </b>
+       </p>
 {% chat %}
 
     {% next_button %}
+
 {% endblock %}

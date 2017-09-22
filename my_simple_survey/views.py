@@ -29,7 +29,7 @@ class Chats(Page):
             self.player.payoff = 0.25
 
         return self.participant.vars['movingOn'] == 'True'
-    timeout_seconds = 120
+    timeout_seconds = 240
     pass
 
 
