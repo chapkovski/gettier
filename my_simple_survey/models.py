@@ -50,7 +50,9 @@ YESNO_CHOICES = (
 
 SURVEY_DEFINITIONS = (
     {
-        'page_title': 'Does Bob know that Jill drives an American car?',
+#        'page_title': 'Does Bob know that Jill drives an American car?',
+        # Leaving page_title blank #
+        'page_title': ' ',
         'survey_fields': [
             ('isItStillKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
                 'text': ' ',   # survey question
