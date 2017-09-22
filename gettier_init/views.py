@@ -25,7 +25,7 @@ class ExitPage (Page):
                 self.session.vars['isExcess'] = True
         else:
             self.participant.vars['isItKnowledge'] = 'False'
-            print('*******participant.vars is', self.participant.vars['isItKnowledge'])
+            # print('*******participant.vars is', self.participant.vars['isItKnowledge'])
             self.session.vars['notKnows'] += 1
             if self.session.vars['notKnows'] - self.session.vars['knows'] > 5: #set this to however many people can be kept waiting at a time
                 self.session.vars['isExcess'] = True
