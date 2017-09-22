@@ -17,13 +17,13 @@ class MovingOnPage(Page):
         if self.player.isItKnowledge == 'True':
             self.participant.vars['isItKnowledge'] = 'True'
             self.session.vars['knows'] += 1
-            if self.session.vars['knows'] - self.session.vars['notKnows'] > 1:  # set this to however many people can be kept waiting at a time
+            if self.session.vars['knows'] - self.session.vars['notKnows'] > 10:  # set this to however many people can be kept waiting at a time
                 self.session.vars['isExcess'] = True
         else:
             self.participant.vars['isItKnowledge'] = 'False'
             # print('*******participant.vars is', self.participant.vars['isItKnowledge'])
             self.session.vars['notKnows'] += 1
-            if self.session.vars['notKnows'] - self.session.vars['knows'] > 1:  # set this to however many people can be kept waiting at a time
+            if self.session.vars['notKnows'] - self.session.vars['knows'] > 10:  # set this to however many people can be kept waiting at a time
                 self.session.vars['isExcess'] = True
         if self.session.vars['isExcess']:
             self.participant.vars['movingOn'] = 'False'
