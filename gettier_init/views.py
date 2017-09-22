@@ -38,15 +38,6 @@ class ExitPage (Page):
 
 
 survey_pages = [
-    DemographicInfo,
-    SurveyPage1,
-]
-
-survey_pages1 = [
-    DemographicInfo,
-]
-
-survey_pages2 = [
     SurveyPage1,
 ]
 
@@ -64,6 +55,5 @@ page_sequence = [
 ]
 
 page_sequence.extend(vignette_page)
-page_sequence.extend(survey_pages2)
-page_sequence.extend(survey_pages1)
+page_sequence.extend(survey_pages)
 page_sequence.extend(last_page)

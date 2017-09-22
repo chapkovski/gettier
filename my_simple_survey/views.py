@@ -38,9 +38,13 @@ class EndSurvey(SurveyPage):
         return self.participant.vars['movingOn'] == 'True'
     pass
 
+class DemographicInfo(SurveyPage):
+    pass
+
 
 survey_pages = [
     EndSurvey,
+    DemographicInfo,
 ]
 
 setup_survey_pages(models.Player, survey_pages)

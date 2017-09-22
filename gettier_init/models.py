@@ -38,67 +38,9 @@ GETTIER_CHOICES = (
     ('False', 'No, he does not know it'),
 )
 
-GENDER_CHOICES = (
-    ('Male', 'Male'),
-    ('Female', 'Female'),
-    ('Other', 'Other'),
-)
 
-RACE_CHOICES = (
-    ('White', 'White'),
-    ('Latino', 'Latino'),
-    ('Black', 'AA'),
-    ('Native American', 'NativeA'),
-    ('Asian or Pacific Islander', 'Asian'),
-    ('Other', 'Other'),
-)
-
-EDUCATION_CHOICES = (
-    ('None', 'No schooling completed'),
-    ('Grade School', 'Nursery school to 8th grade'),
-    ('Some HS', 'Some high school, no diploma'),
-    ('HS', 'High school graduate, diploma or the equivalent (for example: GED)'),
-    ('Some College', 'Some college credit, no degree'),
-    ('Trade School', 'Trade/technical/vocational training'),
-    ('Associate', 'Associate degree'),
-    ('Bachelor', 'Bachelor’s degree'),
-    ('Associate', 'Master’s degree'),
-    ('Professional', 'Professional degree'),
-    ('Doctorate', 'Doctorate degree'),
-    ('Other', 'Other'),
-)
-
-YESNO_CHOICES = (
-    ('True', 'Yes'),
-    ('True', 'No'),
-)
 
 SURVEY_DEFINITIONS = (
-    {
-        'page_title': 'Please answer the following demographic questions:',
-        'survey_fields': [
-            ('age', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'How old are you?',  # survey question
-                 'field': models.CharField(blank=True), # put in free response slot
-             }),
-            ('gender', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your gender?',  # survey question
-                 'field': models.CharField(choices=GENDER_CHOICES),  # put in free response slot?
-             }),
-            ('race', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your race?',  # survey question
-                 'field': models.CharField(choices=RACE_CHOICES),  # put in free response slot?
-             }),
-            ('education', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is the highest level of education you have achieved?',  # survey question
-                 'field': models.CharField(choices=EDUCATION_CHOICES),  # put in free response slot?
-             }),
-            ('movingOn', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Select "Yes" for this question:',   # survey question
-                'field': models.CharField(choices=YESNO_CHOICES),
-             }),
-        ]
-    },
     {
         'page_title': 'Does Bob know that Jill drives an American car?',
         'survey_fields': [
