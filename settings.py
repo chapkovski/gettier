@@ -153,7 +153,7 @@ SESSION_CONFIGS = [
 
     {
         'name': 'Gettier',
-        'display_name': "Gettier Survey",
+        'display_name': "Gettier Survey (Winberg, Nichols, and Stich, 2001)",
         'num_demo_participants': 4,
         'app_sequence': ['gettier_init', 'my_simple_survey'],
     },

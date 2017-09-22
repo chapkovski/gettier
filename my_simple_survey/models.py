@@ -36,8 +36,8 @@ class Group(BaseGroup):
 
 
 GETTIER_CHOICES = (
-        ('True', 'Yes, he knows that Jill drives an American car'),
-        ('False', 'No, he does not know that Jill drives an American car'),
+        ('True', 'Yes, Bob knows that Jill drives an American car'),
+        ('False', 'No, Bob does not know that Jill drives an American car'),
     )
 
 YESNO_CHOICES = (
@@ -94,7 +94,7 @@ SURVEY_DEFINITIONS = (
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
             ('reason', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': '<br><br><br>Please explain in 2-3 lines why you did or did not change your initial answer to this question',   # survey question
+                'text': 'Please explain in 2-3 lines why you did or did not change your initial answer to this question',   # survey question
                 'field': models.CharField(blank=True),
             }),
             ('experience',{
