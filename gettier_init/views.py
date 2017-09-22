@@ -46,7 +46,6 @@ survey_pages1 = [
     DemographicInfo,
 ]
 
-
 survey_pages2 = [
     SurveyPage1,
 ]

@@ -47,8 +47,8 @@ GENDER_CHOICES = (
 RACE_CHOICES = (
     ('White', 'White'),
     ('Latino', 'Latino'),
-    ('Black', 'African American'),
-    ('Native American', 'Native American'),
+    ('Black', 'AA'),
+    ('Native American', 'NativeA'),
     ('Asian or Pacific Islander', 'Asian'),
     ('Other', 'Other'),
 )
@@ -90,7 +90,7 @@ SURVEY_DEFINITIONS = (
                  'field': models.CharField(choices=RACE_CHOICES),  # put in free response slot?
              }),
             ('education', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your highest level of education?',  # survey question
+                 'text': 'What is the highest level of education you have achieved?',  # survey question
                  'field': models.CharField(choices=EDUCATION_CHOICES),  # put in free response slot?
              }),
             ('movingOn', {  # field name (which will also end up in your "Player" class and hence in your output data)

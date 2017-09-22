@@ -8,7 +8,16 @@ from otreeutils.surveys import create_player_model_for_survey
 author = 'Your name here'
 
 doc = """
-Your app description
+This software is adapted from oTree, oTreeUtils, and oTreeChat, for the purpose 
+of (1) pairing mTurkers into chat rooms on the basis of their response to a 
+thought-experiment. "Gettier_init" pairs mTurkers with different intuitions about
+the "Gettier case" (borrowed from Winberg, Nichols, and Stich's 2001, 
+Normativity and Epistemic Intuitions (https://www.jstor.org/stable/43154374). 
+Since researchers may wish to test cases where there will not be an approximately
+equal number of mTurkers on either side (although see Cullen 2010 for techniques
+to manipulate initial responses), this software implements a system for advancing
+excess participants on either side of an issue to the end of the survey without
+waiting for a participant to chat with.
 """
 
 
@@ -27,13 +36,13 @@ class Group(BaseGroup):
 
 
 GETTIER_CHOICES = (
-        ('True', 'Yes, he knows it'),
-        ('False', 'No, he does not know it'),
+        ('True', 'Yes, he knows that Jill drives an American car'),
+        ('False', 'No, he does not know that Jill drives an American car'),
     )
 
 YESNO_CHOICES = (
-        ('True', 'Yes, I have read a story similar to this one before.'),
-        ('False', 'No, I have never read a story similar to this one.'),
+        ('True', 'Yes, I have read a story very similar to this one before.'),
+        ('False', 'No, I have never read a story very similar to this one.'),
     )
 
 
@@ -41,10 +50,10 @@ YESNO_CHOICES = (
 
 SURVEY_DEFINITIONS = (
     {
-        'page_title': 'Please answer the following question:',
+        'page_title': 'Does Bob know that Jill drives an American car?',
         'survey_fields': [
             ('isItStillKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Does Bob know that Jill drives an American car?',   # survey question
+                'text': ' ',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
             ('reason', {   # field name (which will also end up in your "Player" class and hence in your output data)
