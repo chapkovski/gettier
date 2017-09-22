@@ -4,7 +4,6 @@ from otree.api import (
 )
 from otreeutils.surveys import create_player_model_for_survey
 
-
 author = 'Your name here'
 
 doc = """
@@ -20,20 +19,16 @@ excess participants on either side of an issue to the end of the survey without
 waiting for a participant to chat with.
 """
 
-
 class Constants(BaseConstants):
     name_in_url = 'my_simple_survey'
     players_per_group = 2
     num_rounds = 1
-
 
 class Subsession(BaseSubsession):
     pass
 
 class Group(BaseGroup):
     pass
-
-
 
 GETTIER_CHOICES = (
         ('True', 'Yes, Bob knows that Jill drives an American car'),
@@ -79,7 +74,6 @@ MOVINGON_CHOICES = (
     ('True', 'Yes'),
     ('True', 'No'),
 )
-
 
 # if isItStillKnowledge == isItKnowledge, ask them why they changed their mind; else ask why they didn't change their minds
 
