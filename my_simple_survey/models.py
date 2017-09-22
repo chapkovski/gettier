@@ -9,10 +9,10 @@ author = 'Your name here'
 
 doc = """
 This software is adapted from oTree, oTreeUtils, and oTreeChat, for the purpose 
-of (1) pairing mTurkers into chat rooms on the basis of their response to a 
+of pairing mTurkers into chat rooms on the basis of their response to a 
 thought-experiment. "Gettier_init" pairs mTurkers with different intuitions about
 the "Gettier case" (borrowed from Winberg, Nichols, and Stich's 2001, 
-Normativity and Epistemic Intuitions (https://www.jstor.org/stable/43154374). 
+'Normativity and Epistemic Intuitions', https://www.jstor.org/stable/43154374). 
 Since researchers may wish to test cases where there will not be an approximately
 equal number of mTurkers on either side (although see Cullen 2010 for techniques
 to manipulate initial responses), this software implements a system for advancing
@@ -90,11 +90,11 @@ SURVEY_DEFINITIONS = (
         'page_title': ' ',
         'survey_fields': [
             ('isItStillKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Does Bob know that Jill drives an American car',   # survey question
+                'text': 'What do you think after chatting with the other player? Does Bob know that Jill drives an American car?',   # survey question
                 'field': models.CharField(choices=GETTIER_CHOICES),
             }),
             ('reason', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Please explain in 2-3 lines why you did or did not change your initial answer to this question',   # survey question
+                'text': '<br><br><br>Please explain in 2-3 lines why you did or did not change your initial answer to this question',   # survey question
                 'field': models.CharField(blank=True),
             }),
             ('experience',{
