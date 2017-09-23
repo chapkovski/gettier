@@ -49,7 +49,7 @@ AUTH_LEVEL = 'STUDY'
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = 'carrie_pass;'
+ADMIN_PASSWORD = 'simon_;'
 
 
 # setting for integration with AWS Mturk
@@ -86,8 +86,8 @@ DEMO_PAGE_INTRO_TEXT = """
     </li>
 </ul>
 <p>
-    Here are various games implemented with oTree. These games are all open
-    source, and you can modify them as you wish.
+    Here are experiments using various vignettes that experimental 
+    philosophers have studied.
 </p>
 """
 
@@ -112,13 +112,13 @@ mturk_hit_settings = {
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 5,
     'expiration_hours': 5 , # 5 hours
-    # 'grant_qualification_id': '3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3', # uncomment to prevent retakes (live)
-     'grant_qualification_id': '3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG', # uncomment to prevent retakes (sandbox)
+    'grant_qualification_id': '3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3', # uncomment to prevent retakes (live)
+    # 'grant_qualification_id': '3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG', # uncomment to prevent retakes (sandbox)
 
     'qualification_requirements': [
         { # qualification 1: prevent retakes
-            # 'QualificationTypeId': "3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3", # uncomment for live version
-            'QualificationTypeId': "3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG", # uncomment for sandbox version
+             'QualificationTypeId': "3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3", # uncomment for live version
+          #  'QualificationTypeId': "3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG", # uncomment for sandbox version
             'Comparator': "DoesNotExist",
         },
         { # qualification 2: US only (same for live and sandbox)
