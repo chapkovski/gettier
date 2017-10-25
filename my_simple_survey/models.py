@@ -2,12 +2,11 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
-from otreeutils.surveys import create_player_model_for_survey
 
 author = 'Your name here'
 
 doc = """
-This software is adapted from oTree, oTreeUtils, and oTreeChat, for the purpose 
+This software is adapted from oTree, and oTreeChat, for the purpose 
 of pairing mTurkers into chat rooms on the basis of their response to a 
 thought-experiment. "Gettier_init" pairs mTurkers with different intuitions about
 the "Gettier case" (borrowed from Winberg, Nichols, and Stich's 2001, 
@@ -19,26 +18,31 @@ excess participants on either side of an issue to the end of the survey without
 waiting for a participant to chat with.
 """
 
+
 class Constants(BaseConstants):
     name_in_url = 'my_simple_survey'
     players_per_group = 2
     num_rounds = 1
+    reach_payoff = .25
+
 
 class Subsession(BaseSubsession):
     pass
 
+
 class Group(BaseGroup):
     pass
 
+
 GETTIER_CHOICES = (
-        ('True', 'Yes, Bob knows that Jill drives an American car'),
-        ('False', 'No, Bob does not know that Jill drives an American car'),
-    )
+    ('True', 'Yes, Bob knows that Jill drives an American car'),
+    ('False', 'No, Bob does not know that Jill drives an American car'),
+)
 
 YESNO_CHOICES = (
-        ('True', 'Yes, I have read a story very similar to this one before.'),
-        ('False', 'No, I have never read a story very similar to this one.'),
-    )
+    ('True', 'Yes, I have read a story very similar to this one before.'),
+    ('False', 'No, I have never read a story very similar to this one.'),
+)
 
 GENDER_CHOICES = (
     ('Male', 'Male'),
@@ -70,59 +74,26 @@ EDUCATION_CHOICES = (
     ('Other', 'Other'),
 )
 
-MOVINGON_CHOICES = (
-    ('True', 'Yes'),
-    ('True', 'No'),
-)
 
-# if isItStillKnowledge == isItKnowledge, ask them why they changed their mind; else ask why they didn't change their minds
-
-SURVEY_DEFINITIONS = (
-    {
-#        'page_title': 'Does Bob know that Jill drives an American car?',
-        # Leaving page_title blank #
-        'page_title': ' ',
-        'survey_fields': [
-            ('isItStillKnowledge', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'What do you think after chatting with the other player? Does Bob know that Jill drives an American car?',   # survey question
-                'field': models.CharField(choices=GETTIER_CHOICES),
-            }),
-            ('reason', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Please explain in 2-3 lines why you did or did not change your initial answer to this question',   # survey question
-                'field': models.CharField(blank=True),
-            }),
-            ('experience',{
-                'text': 'Have you ever read a story like the one in this experiment in any other context before?',   # survey question
-                'field': models.CharField(choices=YESNO_CHOICES),
-            }),
-        ]
-    },
-    {
-        'page_title': 'Please answer the following demographic questions:',
-        'survey_fields': [
-            ('age', {   # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'How old are you?',  # survey question
-                 'field': models.CharField(blank=True), # put in free response slot
-             }),
-            ('gender', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your gender?',  # survey question
-                 'field': models.CharField(choices=GENDER_CHOICES),  # put in free response slot?
-             }),
-            ('race', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is your race?',  # survey question
-                 'field': models.CharField(choices=RACE_CHOICES),  # put in free response slot?
-             }),
-            ('education', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                 'text': 'What is the highest level of education you have achieved?',  # survey question
-                 'field': models.CharField(choices=EDUCATION_CHOICES),  # put in free response slot?
-             }),
-            ('movingOn', {  # field name (which will also end up in your "Player" class and hence in your output data)
-                'text': 'Select "Yes" for this question:',   # survey question
-                'field': models.CharField(choices=MOVINGON_CHOICES),
-             }),
-        ]
-    },
-)
+class Player(BasePlayer):
+    is_it_still_knowledge = models.CharField(choices=GETTIER_CHOICES,
+                                          verbose_name="""What do you think after chatting with the other player?
+                                          Does Bob know that Jill drives an American car?""",
+                                             widget=widgets.RadioSelectHorizontal)
 
 
-Player = create_player_model_for_survey('my_simple_survey.models', SURVEY_DEFINITIONS)
+    reason = models.TextField(blank=True,
+                              verbose_name="""Please explain in 2-3 lines why you did or did not change
+                                   your initial answer to this question""")
+    experience = models.CharField(choices=YESNO_CHOICES,
+                                  verbose_name="""Have you ever read a story like the one in 
+                                      this experiment in any other context before?""",
+                                  widget=widgets.RadioSelect)
+    age = models.IntegerField(verbose_name="How old are you?")
+    gender = models.CharField(choices=GENDER_CHOICES,
+                              verbose_name='What is your gender?')
+    race = models.CharField(choices=RACE_CHOICES,
+                            verbose_name='What is your race?',
+                            )
+    education = models.CharField(choices=EDUCATION_CHOICES,
+                                 verbose_name='What is the highest level of education you have achieved?')
