@@ -76,6 +76,10 @@ EDUCATION_CHOICES = (
 
 
 class Player(BasePlayer):
+    unmatched =models.BooleanField(doc='for those who havent been matched with those with the opposite view',
+                                  initial=True)
+    wp_passed=models.BooleanField(doc='checking if the player has already passed first wp page',
+                                  initial=False)
     is_it_still_knowledge = models.CharField(choices=GETTIER_CHOICES,
                                           verbose_name="""What do you think after chatting with the other player?
                                           Does Bob know that Jill drives an American car?""",
