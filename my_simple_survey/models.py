@@ -76,6 +76,8 @@ EDUCATION_CHOICES = (
 
 
 class Player(BasePlayer):
+    in_wp = models.BooleanField(doc='to count waiting players',
+                                  initial=False)
     unmatched =models.BooleanField(doc='for those who havent been matched with those with the opposite view',
                                   initial=True)
     wp_passed=models.BooleanField(doc='checking if the player has already passed first wp page',
