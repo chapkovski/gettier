@@ -31,24 +31,18 @@ class GroupingWaitPage(WaitPage):
                 p.wp_passed = True
                 p.save()
             return passers
-        # print('MTURK NUM PARTICIAPNTS: ',self.session.mturk_num_participants)
-        # print('LEN GET PARTICIPANTS: ', len(self.session.get_participants()))
-        # print('PURE NUM PARTICIAPNTS: ', self.session.num_participants)
         if self.session.mturk_num_participants != -1:
             num_participants = self.session.mturk_num_participants
         else:
             num_participants = len(self.session.get_participants())
-        answered = [p for p in self.session.get_participants() if p.vars.get('is_it_knowledge') == None]
+        answered = [p for p in self.session.get_participants() if p.vars.get('is_it_knowledge') != None]
         left = num_participants - len(answered)
-        over = len(waiting_players) - left
-        if over > 0:
-            losers = waiting_players[:over]
+        if left <= 0:
+            losers = waiting_players
             for l in losers:
                 l.unmatched = True
             return losers
 
-    def is_displayed(self):
-        print(self.player.id_in_subsession)
 
 
 class Chats(DecisionPage):

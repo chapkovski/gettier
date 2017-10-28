@@ -31,6 +31,5 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     is_it_knowledge = models.BooleanField(verbose_name='Does Bob know that Jill drives an American car? ')
-    # timestamp_answer = models.IntegerField()
 
 
