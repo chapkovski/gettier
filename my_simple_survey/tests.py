@@ -7,6 +7,8 @@ from .models import Constants, EDUCATION_CHOICES, GENDER_CHOICES, GETTIER_CHOICE
 class PlayerBot(Bot):
 
     def play_round(self):
+        if self.
+
         if not self.player.unmatched:
             yield (views.Chats)
             yield (views.EndSurvey, {
