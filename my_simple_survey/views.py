@@ -6,12 +6,13 @@ import random
 
 
 class DecisionPage(Page):
+
     def is_displayed(self):
         return not self.player.unmatched
 
 
-
 class SkipPage( Page):
+
     def is_displayed(self):
         return self.player.unmatched
 
@@ -47,8 +48,6 @@ class GroupingWaitPage(WaitPage):
             return losers
 
 
-
-
 class Chats(DecisionPage):
     timeout_seconds = 240
 
@@ -64,11 +63,11 @@ class EndSurvey(DecisionPage):
 
 class DemographicInfo(DecisionPage):
     form_model = models.Player
-    form_fields = ['age', 'gender', 'age', 'education', ]
+    form_fields = ['age', 'gender', 'education', ]
 
 
 class ExitPage(SkipPage):
-    ...
+    pass
 
 
 page_sequence = [
