@@ -11,7 +11,7 @@ class DecisionPage(Page):
         return not self.player.unmatched
 
 
-class SkipPage( Page):
+class SkipPage(Page):
 
     def is_displayed(self):
         return self.player.unmatched
@@ -31,18 +31,18 @@ class GroupingWaitPage(WaitPage):
                 p.wp_passed = True
                 p.save()
             return passers
-        print('MTURK NUM PARTICIAPNTS: ',self.session.mturk_num_participants)
-        print('LEN GET PARTICIPANTS: ', len(self.session.get_participants()))
-        print('PURE NUM PARTICIAPNTS: ', self.session.num_participants)
+        #print('MTURK NUM PARTICIAPNTS: ',self.session.mturk_num_participants)
+        #print('LEN GET PARTICIPANTS: ', len(self.session.get_participants()))
+        #print('PURE NUM PARTICIAPNTS: ', self.session.num_participants)
         if self.session.mturk_num_participants != -1:
             num_participants = self.session.mturk_num_participants
         else:
             num_participants = self.session.num_participants
         answered = [p for p in self.session.get_participants() if p.vars.get('is_it_knowledge', 666) != 666]
-        left = num_participants -len( answered)
+        left = num_participants - len(answered)
         over = len(waiting_players) - left
         if over > 0:
-            losers = waiting_players[:over]
+            losers = waiting_players[:over+1]
             for l in losers:
                 l.unmatched = True
             return losers
