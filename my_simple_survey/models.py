@@ -21,7 +21,7 @@ waiting for a participant to chat with.
 
 class Constants(BaseConstants):
     name_in_url = 'my_simple_survey'
-    players_per_group = 2
+    players_per_group = None
     num_rounds = 1
     reach_payoff = .25
 

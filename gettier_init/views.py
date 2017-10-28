@@ -5,7 +5,8 @@ from .models import Constants
 import random
 
 
-class Vignette(Page):
+
+class Vignette( Page):
     form_model = models.Player
     form_fields = ['is_it_knowledge']
 
