@@ -156,6 +156,7 @@ SESSION_CONFIGS = [
         'display_name': "Gettier Survey (Winberg, Nichols, and Stich, 2001)",
         'num_demo_participants': 7,
         'app_sequence': ['gettier_init', 'my_simple_survey'],
+        'chat_seconds': 120,
     },
     ]
 

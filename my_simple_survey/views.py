@@ -47,7 +47,9 @@ class GroupingWaitPage(WaitPage):
 
 
 class Chats(DecisionPage):
-    timeout_seconds = 240
+    def get_timeout_seconds(self):
+        return self.session.config.get('chat_seconds', 120)
+
 
     def vars_for_template(self):
         # award bonus to anyone who makes it this far
