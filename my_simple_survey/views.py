@@ -19,7 +19,7 @@ class GroupingWaitPage(WaitPage):
     group_by_arrival_time = True
 
     def get_players_for_group(self, waiting_players):
-        print('WE ARE IN GBAT')
+
         waiting_players.sort(key=lambda p: p.participant.vars.get('timestamp_answer'))
         true_players = [p for p in waiting_players if p.participant.vars.get('is_it_knowledge')]
         false_players = [p for p in waiting_players if not p.participant.vars.get('is_it_knowledge')]
@@ -41,6 +41,7 @@ class GroupingWaitPage(WaitPage):
             losers = waiting_players
             for l in losers:
                 l.unmatched = True
+                l.save()
             return losers
 
 
