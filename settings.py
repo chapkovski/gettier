@@ -7,7 +7,7 @@ import otree.settings
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
+ROOT_URLCONF = 'urls'
 # the environment variable OTREE_PRODUCTION controls whether Django runs in
 # DEBUG mode. If OTREE_PRODUCTION==1, then DEBUG=False
 if environ.get('OTREE_PRODUCTION') not in {None, '', '0'}:
@@ -68,7 +68,7 @@ USE_POINTS = False
 LANGUAGE_CODE = 'en'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree', 'otreechat', ]
+INSTALLED_APPS = ['otree',   'crispy_forms',]
 
 # SENTRY_DSN = ''
 

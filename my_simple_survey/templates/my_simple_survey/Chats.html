@@ -1,6 +1,6 @@
 {% extends "global/Page.html" %}
 {% load staticfiles otree_tags %}
-{% load otreechat %}
+
 
 {% block title %}
     Welcome To Your Chat!
@@ -15,20 +15,27 @@
         his/her answer to Player 2.
         For your reference, here is the original case:
     <p style="border:2px; border-style:solid; border-color:#000000; padding: 1em;">
-           Bob has a friend, Jill, who has driven a Buick for many years.
-           Bob therefore thinks that Jill drives an American car. He is not aware,
-           however, that her Buick has recently been stolen, and he is also not
-           aware that Jill has replaced it with a Pontiac, which is a different
-           kind of American car.
-           <br><br>
-           <b>
-               Does Bob know that Jill drives an American car?
-           </b>
-       </p>
+        {{ vignette }}
+        <br><br>
+        <b>
+            Does Bob know that Jill drives an American car?
+        </b>
+    </p>
     <br>
     Use this chat box to talk to the other player:
-{% chat %}
+    {% chat %}
 
 
+    {% next_button %}
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $('.otree-btn-next').hide();
+        var to_show_next ={{ min_chat_sec }} *1000;
+        setTimeout(function () {
+            $('.otree-btn-next').show();
+        }, to_show_next);
+    </script>
 {% endblock %}

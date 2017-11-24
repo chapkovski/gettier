@@ -6,6 +6,11 @@
 {% endblock %}
 
 {% block content %}
-    {{ form }}
+    <b>What do you think after chatting with the other player?</b>
+    {% formfield player.is_it_still_knowledge with label=isitknowledgelabel %}
+    {% formfield player.reason %}
+    {% formfield player.experience %}
+
+
     {% next_button %}
 {% endblock %}

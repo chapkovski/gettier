@@ -2,6 +2,8 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
+from gettier_init.models import SettingsMod
+import json
 
 author = 'Your name here'
 
@@ -27,7 +29,10 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    settings = models.CharField()
+
+    def creating_session(self):
+        self.settings = json.dumps(SettingsMod.load().as_dict())
 
 
 class Group(BaseGroup):
@@ -77,16 +82,14 @@ EDUCATION_CHOICES = (
 
 class Player(BasePlayer):
     in_wp = models.BooleanField(doc='to count waiting players',
-                                  initial=False)
-    unmatched =models.BooleanField(doc='for those who havent been matched with those with the opposite view',
-                                  initial=True)
-    wp_passed=models.BooleanField(doc='checking if the player has already passed first wp page',
-                                  initial=False)
+                                initial=False)
+    unmatched = models.BooleanField(doc='for those who havent been matched with those with the opposite view',
+                                    initial=True)
+    wp_passed = models.BooleanField(doc='checking if the player has already passed first wp page',
+                                    initial=False)
     is_it_still_knowledge = models.CharField(choices=GETTIER_CHOICES,
-                                          verbose_name="""What do you think after chatting with the other player?
-                                          Does Bob know that Jill drives an American car?""",
-                                             widget=widgets.RadioSelectHorizontal)
-
+                                             verbose_name="""Does Bob know that Jill drives an American car?""",
+                                             widget=widgets.RadioSelect)
 
     reason = models.TextField(blank=True,
                               verbose_name="""Please explain in 2-3 lines why you did or did not change

@@ -7,14 +7,10 @@
 
 {% block content %}
        <p style="border:2px; border-style:solid; border-color:#000000; padding: 1em;">
-           Bob has a friend, Jill, who has driven a Buick for many years.
-           Bob therefore thinks that Jill drives an American car. He is not aware,
-           however, that her Buick has recently been stolen, and he is also not
-           aware that Jill has replaced it with a Pontiac, which is a different
-           kind of American car.
+           {{ vignette }}
        </p>
     <br>
-    {{ form }}
+        {% formfield player.is_it_knowledge with label=label %}
     <br><br>
     {% next_button %}
 {% endblock %}

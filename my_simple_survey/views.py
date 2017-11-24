@@ -3,6 +3,7 @@ from . import models
 from ._builtin import Page, WaitPage
 from .models import Constants
 import random
+import json
 
 
 class DecisionPage(Page):
@@ -45,20 +46,37 @@ class GroupingWaitPage(WaitPage):
             return losers
 
 
-
 class Chats(DecisionPage):
     def get_timeout_seconds(self):
-        return self.session.config.get('chat_seconds', 120)
-
+        settings = json.loads(self.subsession.settings)
+        return settings['max_chat_sec']
 
     def vars_for_template(self):
         # award bonus to anyone who makes it this far
         self.player.payoff = Constants.reach_payoff
+        settings = json.loads(self.subsession.settings)
+
+        return {'vignette': settings['vignette'],
+                'min_chat_sec': settings['min_chat_sec']}
 
 
 class EndSurvey(DecisionPage):
     form_model = models.Player
     form_fields = ['is_it_still_knowledge', 'reason', 'experience', ]
+
+    def is_it_still_knowledge_choices(self):
+        settings = json.loads(self.subsession.settings)
+        yes_choice = settings['yes_choice']
+        no_choice = settings['no_choice']
+        choices = [(True, yes_choice), (False, no_choice)]
+        random.shuffle(choices)
+        return choices
+
+    def vars_for_template(self):
+        settings = json.loads(self.subsession.settings)
+        return {'vignette': settings['vignette'],
+                'isitknowledgelabel': settings['label'],
+                }
 
 
 class DemographicInfo(DecisionPage):
