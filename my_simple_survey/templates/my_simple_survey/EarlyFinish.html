@@ -1,0 +1,13 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Thank You For Completing The Survey
+{% endblock %}
+
+{% block content %}
+    <p>Thank you for your participation. Despite the fact that you decided to leave the study early,
+        you are still elibigle for payment for your waiting and for the participation fee.</p>
+    {% include 'my_simple_survey/results_table.html' %}
+    {% next_button %}
+{% endblock %}

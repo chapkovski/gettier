@@ -1,0 +1,12 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+    <p>Thank you your participation</p>
+    {% include 'my_simple_survey/results_table.html' %}
+    {% next_button %}
+{% endblock %}

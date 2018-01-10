@@ -79,8 +79,16 @@ EDUCATION_CHOICES = (
     ('Other', 'Other'),
 )
 
+from django.db import models as djmodels
+
 
 class Player(BasePlayer):
+    reach_payoff = models.FloatField(doc='extra bonus for reaching chat stage', initial=0)
+    early_finish = models.BooleanField(doc='if decided to abandon the waiting page clickin Finish the study')
+    payoff_set = models.BooleanField(doc='check if payoff already set',)
+    wp_timer_start = djmodels.DateTimeField(null=True, blank=True)
+    sec_spent = models.IntegerField(doc='number of seconds spent on waiting page')
+    sec_earned = models.FloatField(doc='dollars earned for waiting')
     in_wp = models.BooleanField(doc='to count waiting players',
                                 initial=False)
     unmatched = models.BooleanField(doc='for those who havent been matched with those with the opposite view',
@@ -106,3 +114,5 @@ class Player(BasePlayer):
                             )
     education = models.CharField(choices=EDUCATION_CHOICES,
                                  verbose_name='What is the highest level of education you have achieved?')
+    def set_payoff(self):
+        self.payoff = self.reach_payoff + self.sec_earned

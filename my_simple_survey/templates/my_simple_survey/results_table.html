@@ -1,0 +1,33 @@
+{% load staticfiles otree_tags %}
+
+<table class="table table-striped table-responsive table-hover">
+    <tbody>
+    <tr>
+        <th>Your participation fee:</th>
+        <td>{{ session.config.participation_fee }}</td>
+    </tr>
+
+    {% if player.sec_earned > 0 %}
+        <tr>
+            <th>Your payment for waiting for another participant:</th>
+            <td>{{ player.sec_earned|c }}</td>
+        </tr>
+    {% endif %}
+
+    {% if player.reach_payoff > 0 %}
+        <tr>
+            <th>Your extra bonus:</th>
+            <td>{{ player.reach_payoff|c }}</td>
+        </tr>
+    {% endif %}
+
+    {% if player.sec_earned > 0 or player.reach_payoff > 0 %}
+        <tr>
+            <th>Total amount to be paid:</th>
+            <td>{{ participant.payoff_plus_participation_fee }}</td>
+        </tr>
+    {% endif %}
+
+    </tbody>
+</table>
+

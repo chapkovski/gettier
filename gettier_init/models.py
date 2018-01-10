@@ -48,11 +48,14 @@ class SingletonModel(djmodels.Model):
             return cls.objects.get()
         except cls.DoesNotExist:
             return cls()
-vignette_text=""" Bob has a friend, Jill, who has driven a Buick for many years.
+
+
+vignette_text = """ Bob has a friend, Jill, who has driven a Buick for many years.
            Bob therefore thinks that Jill drives an American car. He is not aware,
            however, that her Buick has recently been stolen, and he is also not
            aware that Jill has replaced it with a Pontiac, which is a different
            kind of American car."""
+
 
 class SettingsMod(SingletonModel):
     label = models.CharField(verbose_name='Question for vignette',
@@ -65,16 +68,17 @@ class SettingsMod(SingletonModel):
     no_choice = models.CharField(verbose_name='Text for \'No\' answer', default='No, he does not know it')
     min_chat_sec = models.IntegerField(verbose_name='Minimum time on chat page, in seconds', default=60)
     max_chat_sec = models.IntegerField(verbose_name='Maximum time on chat page, in seconds', default=120)
+    pay_per_min = models.FloatField(verbose_name='How much a person earned for minute of waiting',
+                                    doc='how much a person earned for waiting', initial=0.1)
+    wait_before_leave = models.IntegerField(doc='after how many secs a person can quit waiting page',
+                                            initial=15)
 
     def as_dict(self):
-        return {
-            "label": self.label,
-            "vignette": self.vignette,
-            "yes_choice": self.yes_choice,
-            "no_choice": self.no_choice,
-            "min_chat_sec": self.min_chat_sec,
-            "max_chat_sec": self.max_chat_sec,
-        }
+        af = self._meta.get_fields()
+        dicttoret = dict()
+        for i in af:
+            dicttoret[i.name] = getattr(self,i.name)
+        return dicttoret
 
 
 class Constants(BaseConstants):
@@ -93,11 +97,10 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         self.settings = json.dumps(SettingsMod.load().as_dict())
 
+
 class Group(BaseGroup):
     pass
 
 
 class Player(BasePlayer):
     is_it_knowledge = models.BooleanField(verbose_name='Does Bob know that Jill drives an American car? ')
-
-
