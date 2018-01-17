@@ -71,11 +71,7 @@ class Vignette(Page):
                 }
 
     def is_it_knowledge_choices(self):
-        settings = json.loads(self.subsession.settings)
-        yes_choice = settings['yes_choice']
-        no_choice = settings['no_choice']
-        choices = [(True, yes_choice), (False, no_choice)]
-        random.shuffle(choices)
+        choices = self.participant.vars['choices_order']
         return choices
 
     def before_next_page(self):

@@ -3,7 +3,7 @@ from otree.api import (
     Currency as c, currency_range
 )
 
-import json
+import json, random
 
 author = 'Philip Chapkovski, UZH for Simon Cullen, Princeton'
 
@@ -96,6 +96,17 @@ class Subsession(BaseSubsession):
 
     def creating_session(self):
         self.settings = json.dumps(SettingsMod.load().as_dict())
+        settings = json.loads(self.settings)
+        yes_choice = settings['yes_choice']
+        no_choice = settings['no_choice']
+        choices = [(True, yes_choice), (False, no_choice)]
+        for p in self.session.get_participants():
+            curch = choices.copy()
+            random.shuffle(curch)
+            p.vars['choices_order'] = curch
+        for p in self.get_players():
+            p.choices_order = p.participant.vars['choices_order']
+
 
 
 class Group(BaseGroup):
@@ -103,4 +114,5 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    choices_order = models.CharField()
     is_it_knowledge = models.BooleanField(verbose_name='Does Bob know that Jill drives an American car? ')

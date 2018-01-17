@@ -26,6 +26,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     reach_payoff = .25
+    threshold_sec = 5
 
 
 class Subsession(BaseSubsession):
@@ -83,6 +84,8 @@ from django.db import models as djmodels
 
 
 class Player(BasePlayer):
+    chat_status = models.CharField()
+    disconnected_timestamp = djmodels.DateTimeField(blank=True, null=True)
     reach_payoff = models.FloatField(doc='extra bonus for reaching chat stage', initial=0)
     early_finish = models.BooleanField(doc='if decided to abandon the waiting page clickin Finish the study')
     payoff_set = models.BooleanField(doc='check if payoff already set',)

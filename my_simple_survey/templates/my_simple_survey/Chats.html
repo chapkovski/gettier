@@ -27,15 +27,20 @@
 
 
     <button class="otree-btn-next btn btn-danger">Finish chat</button>
-
+{%  include 'my_simple_survey/includes/end_chat_modal.html' %}
 {% endblock %}
 
 {% block scripts %}
+    {%  include 'my_simple_survey/includes/chatcontrolchannel.html' %}
     <script>
-        $('.otree-btn-next').hide();
-        var to_show_next ={{ min_chat_sec }} *1000;
-        setTimeout(function () {
-            $('.otree-btn-next').show();
-        }, to_show_next);
+        $(function () {
+            $('.otree-btn-next').hide();
+            var to_show_next =
+            {{ min_chat_sec }} *
+            1000;
+            setTimeout(function () {
+                $('.otree-btn-next').show();
+            }, to_show_next);
+        });
     </script>
 {% endblock %}

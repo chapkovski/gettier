@@ -83,9 +83,9 @@ class GroupingWaitPage(WaitPage):
 
 
 class Chats(DecisionPage):
-    def get_timeout_seconds(self):
-        settings = json.loads(self.subsession.settings)
-        return settings['max_chat_sec']
+    # def get_timeout_seconds(self):
+    #     settings = json.loads(self.subsession.settings)
+    #     return settings['max_chat_sec']
 
     def vars_for_template(self):
         # award bonus to anyone who makes it this far
@@ -103,11 +103,7 @@ class EndSurvey(DecisionPage):
     form_fields = ['is_it_still_knowledge', 'reason', 'experience', ]
 
     def is_it_still_knowledge_choices(self):
-        settings = json.loads(self.subsession.settings)
-        yes_choice = settings['yes_choice']
-        no_choice = settings['no_choice']
-        choices = [(True, yes_choice), (False, no_choice)]
-        random.shuffle(choices)
+        choices = self.participant.vars['choices_order']
         return choices
 
     def vars_for_template(self):

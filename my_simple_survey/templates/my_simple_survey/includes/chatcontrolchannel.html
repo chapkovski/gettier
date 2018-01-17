@@ -1,0 +1,71 @@
+<script type="text/javascript">
+    $(function () {
+
+        var socket;
+
+        initWebSocket();
+
+        function initWebSocket() {
+
+            var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+            var ws_path = ws_scheme + '://' + window.location.host + "/chatwatcher/group/{{ group.pk }}/participant/{{ participant.code }}/player/{{ player.pk}}";
+            {#        var ws_path = ws_scheme + '://' + window.location.host + "{{ view.socket_url|safe }}";#}
+            socket = new ReconnectingWebSocket(ws_path);
+            socket.onmessage = function (e) {
+
+                var data = JSON.parse(e.data);
+                console.log(data);
+                if (data.over == true) {
+                    $('#end_of_chat_modal').modal('show');
+                    window.setTimeout(function () {
+                        $('#form').submit();
+                    }, 10000);
+
+                }
+                // Handle errors
+                if (data.error) {
+                    // maybe the div's default text doesn't get shown
+                    $("#_otree-server-error").text(data.error);
+                    $("#_otree-server-error").show();
+                    if (data.traceback) {
+                        $("#error-traceback").html('<pre>' + data.traceback + '</pre>');
+                        $("#error-traceback").show();
+                    }
+                    return;
+                }
+
+
+            };
+            socket.onopen = function () {
+                console.log('ChatWatcher connected');
+            };
+            socket.onclose = function () {
+                console.log('ChatWatcher disconnected');
+            };
+        };
+
+        function type_to_socket(msg_type) {
+
+            if (socket.readyState == WebSocket.OPEN) {
+                msg = JSON.stringify({'type': msg_type});
+                socket.send(msg);
+            }
+            ;
+        };
+
+
+        $('#form').submit(function () {
+
+            type_to_socket('out');
+            return;
+        });
+
+        var intervalID = window.setInterval(function () {
+            type_to_socket('checking');
+        }, 5000);
+
+
+    });
+
+
+</script>
