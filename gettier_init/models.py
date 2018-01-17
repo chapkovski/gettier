@@ -67,11 +67,11 @@ class SettingsMod(SingletonModel):
     yes_choice = models.CharField(verbose_name='Text for \'Yes\' answer', default='Yes, he knows it')
     no_choice = models.CharField(verbose_name='Text for \'No\' answer', default='No, he does not know it')
     min_chat_sec = models.IntegerField(verbose_name='Minimum time on chat page, in seconds', default=60)
-    max_chat_sec = models.IntegerField(verbose_name='Maximum time on chat page, in seconds', default=120)
+    max_chat_sec = models.IntegerField(verbose_name='Maximum time on chat page, in seconds', default=300)
     pay_per_min = models.FloatField(verbose_name='How much a person earned for minute of waiting',
                                     doc='how much a person earned for waiting', initial=0.1)
     wait_before_leave = models.IntegerField(doc='after how many secs a person can quit waiting page',
-                                            initial=15)
+                                            initial=300)
 
     def as_dict(self):
         af = self._meta.get_fields()

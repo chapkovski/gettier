@@ -2,15 +2,26 @@
 {% load staticfiles otree %}
 {% block title %}{{ title_text }}{% endblock %}
 {% block content %}
-    {{ body_text }}
+
+    <p>
+        In the next stage of this study, you will chat with a participant who gave a different answer than you. Attempt
+        to
+        convince the other person of your answer .
+    </p>
+
+
 
     <div class="waiting_block">
-        <p>How long have you already wait: <span class="label label-success timers"
-                                                 id="sec_spent_span"></span></p>
-        {% if view.pay_per_min > 0 %}
-            <p>So far you earned for waiting: <span class="label label-primary timers "
-                                                    id="sec_earned_span"></span></p>
-        {% endif %}
+        Please wait for the other participant to join the chat room. {% if view.pay_per_min > 0 %}
+        You are earning {{ view.pay_per_min|c }} per minute spent on this waiting
+        page. So far, you have earned <span class="timers "
+                                             id="sec_earned_span"></span> for waiting
+        <span class=" timers"
+              id="sec_spent_span"></span> minutes.
+
+
+
+    {% endif %}
     </div>
     {% if view.wait_before_leave >= 0 %}
         <div id="otree-timeout-warning" class="alert alert-warning" style="display:block;">
@@ -24,8 +35,9 @@
             {% csrf_token %}
             <div class="finish_study_div">
                 <div id="part_fee_info" class="alert alert-danger" role="alert">
-                    <b>If you click 'Finish the study' you still will receive your participant fee plus everything you
-                        have earned by waiting.</b>
+                    <b>You may exit the study now. You will receive your participant fee plus everything you have earned
+                        by
+                        waiting.</b>
                 </div>
                 <button class="btn btn-primary" id='finish_study'
 
@@ -108,14 +120,15 @@
 
 {% block styles %}
     <style>
-    {% if view.wait_before_leave >= 0 %}
-        .finish_study_div {
-            display: none;
-        }
-    {%  endif %}
+        {% if view.wait_before_leave >= 0 %}
+            .finish_study_div {
+                display: none;
+            }
+        {%  endif %}
 
         span.timers {
             font-size: 120%;
+            font-weight: bold;
         }
 
         .waiting_block {
