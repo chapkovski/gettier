@@ -2,15 +2,26 @@ from otree.api import (
     models, widgets, BaseConstants, BaseSubsession, BaseGroup, BasePlayer,
     Currency as c, currency_range
 )
+from .widgets import LikertWidget
+from django.db import models as djmodels
 
 import json, random
 
-author = 'Philip Chapkovski, UZH for Simon Cullen, Princeton'
+author = 'Simon Cullen, Philipp Chapkovski'
 
 doc = """
-Your app description
+Gettier case
 """
-from django.db import models as djmodels
+
+CONFIDENCE_CHOICES = (
+    (1, 'Not confident at all'),
+    (2, ''),
+    (3, ''),
+    (4, 'Somewhat confident'),
+    (5, ''),
+    (6, ''),
+    (7, 'Very confident'),
+)
 
 
 class SingletonModel(djmodels.Model):
@@ -72,15 +83,17 @@ class SettingsMod(SingletonModel):
                                   initial=" ".join(vignette_text.split())
                                   )
     chat_instructions = models.StringField(verbose_name='Instructions for chat',
-                                  widget=djmodels.TextField,
-                                  initial=" ".join(chat_instructions.split())
-                                  )
+                                           widget=djmodels.TextField,
+                                           initial=" ".join(chat_instructions.split())
+                                           )
     yes_choice = models.StringField(verbose_name='Text for \'Yes\' answer', default='Yes, he knows it')
     no_choice = models.StringField(verbose_name='Text for \'No\' answer', default='No, he does not know it')
     min_chat_sec = models.IntegerField(verbose_name='Minimum time on chat page, in seconds', default=60)
     max_chat_sec = models.IntegerField(verbose_name='Maximum time on chat page, in seconds', default=300)
     pay_per_min = models.FloatField(verbose_name='How much a person earned for minute of waiting',
                                     doc='how much a person earned for waiting', initial=0.1)
+    pay_per_word = models.FloatField(verbose_name='How much a person earned for a word exchanged in chat',
+                                     doc='how much a person earned for chatting', initial=0.05)
     wait_before_leave = models.IntegerField(doc='after how many secs a person can quit waiting page',
                                             initial=300)
 
@@ -124,5 +137,9 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    choices_order = models.CharField()
+    choices_order = models.StringField()
     is_it_knowledge = models.BooleanField(verbose_name='Does Bob know that Jill drives an American car? ')
+    confidence = models.IntegerField(
+        choices=CONFIDENCE_CHOICES,
+        widget=LikertWidget,
+        )

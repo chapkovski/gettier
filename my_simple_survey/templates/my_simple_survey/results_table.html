@@ -16,8 +16,15 @@
 
     {% if player.reach_payoff > 0 %}
         <tr>
-            <th>Your extra bonus:</th>
+            <th>Your  bonus for joining the chat:</th>
             <td>{{ player.reach_payoff|c }}</td>
+        </tr>
+    {% endif %}
+
+        {% if player.chat_earnings > 0 %}
+        <tr>
+            <th>Your  bonus for participation in chat:</th>
+            <td>{{ player.chat_earnings|c }}</td>
         </tr>
     {% endif %}
 

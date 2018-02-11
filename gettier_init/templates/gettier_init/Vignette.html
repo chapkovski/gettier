@@ -11,6 +11,8 @@
        </p>
     <br>
         {% formfield player.is_it_knowledge with label=label %}
+     {% formfield player.confidence with label="How confident you are in your answer?"%}
+
     <br><br>
     {% next_button %}
 {% endblock %}

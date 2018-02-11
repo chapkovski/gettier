@@ -1,7 +1,7 @@
 
 # from django.views.generic import TemplateView
 
-import gettier_init.views as v
+import gettier_init.pages as v
 
 # urls.py
 from django.conf.urls import url

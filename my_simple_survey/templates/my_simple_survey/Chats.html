@@ -7,6 +7,14 @@
 {% endblock %}
 
 {% block content %}
+    {%  if pay_per_word > 0 %}
+    <div class="alert alert-primary" role="alert">
+        You earn {{ pay_per_word|c }} in bonus pay for each word of <strong>meaningful</strong> conversation with your
+        partner about the case.
+        Your chat will be reviewed by the experimenter to make sure that both partners are contributing to the
+        discussion. Participants who do not contribute meaningfully will not be paid this bonus.
+    </div>
+    {% endif %}
 
     <p> {{ chat_instructions }}</p>
     <p style="border:2px; border-style:solid; border-color:#000000; padding: 1em;">
@@ -22,11 +30,11 @@
 
 
     <button class="otree-btn-next btn btn-danger">Finish chat</button>
-{%  include 'my_simple_survey/includes/end_chat_modal.html' %}
+    {% include 'my_simple_survey/includes/end_chat_modal.html' %}
 {% endblock %}
 
 {% block scripts %}
-    {%  include 'my_simple_survey/includes/chatcontrolchannel.html' %}
+    {% include 'my_simple_survey/includes/chatcontrolchannel.html' %}
     <script>
         $(function () {
             $('.otree-btn-next').hide();

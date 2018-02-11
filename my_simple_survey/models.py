@@ -4,8 +4,11 @@ from otree.api import (
 )
 from gettier_init.models import SettingsMod
 import json
-
-author = 'Your name here'
+from otree.models_concrete import ChatMessage
+from django.db import models as djmodels
+from gettier_init.models import CONFIDENCE_CHOICES
+from gettier_init.widgets import LikertWidget
+author = 'Simon Cullen, Philipp Chapkovski'
 
 doc = """
 This software is adapted from oTree, and oTreeChat, for the purpose 
@@ -37,13 +40,21 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    pass
+    def set_chat_payoff(self):
+        settings = json.loads(self.subsession.settings)
+        pay_per_word = settings['pay_per_word']
+        participants = [p.participant for p in self.get_players()]
+        allchatmessages = ChatMessage.objects.filter(participant__in=participants).values_list('body', flat=True)
+        flatten_m = ' '.join(allchatmessages).split()
+        lwords = len(flatten_m)
+        Player.objects.filter(group=self).update(chat_earnings=lwords * pay_per_word)
 
 
 GETTIER_CHOICES = (
     ('True', 'Yes, Bob knows that Jill drives an American car'),
     ('False', 'No, Bob does not know that Jill drives an American car'),
 )
+
 
 YESNO_CHOICES = (
     ('True', 'Yes, I have read a story very similar to this one before.'),
@@ -80,15 +91,14 @@ EDUCATION_CHOICES = (
     ('Other', 'Other'),
 )
 
-from django.db import models as djmodels
-
 
 class Player(BasePlayer):
-    chat_status = models.CharField()
+    chat_earnings = models.CurrencyField(doc='payment get for chatting', default=0)
+    chat_status = models.StringField()
     disconnected_timestamp = djmodels.DateTimeField(blank=True, null=True)
     reach_payoff = models.FloatField(doc='extra bonus for reaching chat stage', initial=0)
     early_finish = models.BooleanField(doc='if decided to abandon the waiting page clickin Finish the study')
-    payoff_set = models.BooleanField(doc='check if payoff already set',)
+    payoff_set = models.BooleanField(doc='check if payoff already set', )
     wp_timer_start = djmodels.DateTimeField(null=True, blank=True)
     sec_spent = models.IntegerField(doc='number of seconds spent on waiting page')
     sec_earned = models.FloatField(doc='dollars earned for waiting')
@@ -98,24 +108,31 @@ class Player(BasePlayer):
                                     initial=True)
     wp_passed = models.BooleanField(doc='checking if the player has already passed first wp page',
                                     initial=False)
-    is_it_still_knowledge = models.CharField(choices=GETTIER_CHOICES,
+    is_it_still_knowledge = models.StringField(choices=GETTIER_CHOICES,
                                              verbose_name="""Does Bob know that Jill drives an American car?""",
                                              widget=widgets.RadioSelect)
+
+    still_confidence = models.IntegerField(
+        choices=CONFIDENCE_CHOICES,
+        widget=LikertWidget,
+        )
+
 
     reason = models.TextField(blank=True,
                               verbose_name="""Please explain in 2-3 lines why you did or did not change
                                    your initial answer to this question""")
-    experience = models.CharField(choices=YESNO_CHOICES,
+    experience = models.StringField(choices=YESNO_CHOICES,
                                   verbose_name="""Have you ever read a story like the one in 
                                       this experiment in any other context before?""",
                                   widget=widgets.RadioSelect)
-    age = models.IntegerField(verbose_name="How old are you?")
-    gender = models.CharField(choices=GENDER_CHOICES,
+    age = models.IntegerField(verbose_name="How old are you?", min=15, max=100)
+    gender = models.StringField(choices=GENDER_CHOICES,
                               verbose_name='What is your gender?')
-    race = models.CharField(choices=RACE_CHOICES,
+    race = models.StringField(choices=RACE_CHOICES,
                             verbose_name='What is your race?',
                             )
-    education = models.CharField(choices=EDUCATION_CHOICES,
+    education = models.StringField(choices=EDUCATION_CHOICES,
                                  verbose_name='What is the highest level of education you have achieved?')
+
     def set_payoff(self):
-        self.payoff = self.reach_payoff + self.sec_earned
+        self.payoff = self.reach_payoff + self.sec_earned + self.chat_earnings

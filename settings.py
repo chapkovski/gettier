@@ -5,7 +5,7 @@ import dj_database_url
 
 import otree.settings
 
-
+EXTENSION_APPS = ['my_simple_survey']
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_URLCONF = 'urls'
 # the environment variable OTREE_PRODUCTION controls whether Django runs in
