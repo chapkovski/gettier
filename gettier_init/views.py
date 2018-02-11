@@ -17,6 +17,7 @@ from crispy_forms.layout import Layout, ButtonHolder, Submit, Field
 
 class VignetteSettingsForm(forms.ModelForm):
     vignette = forms.CharField(widget=forms.Textarea)
+    chat_instructions = forms.CharField(widget=forms.Textarea)
     pay_per_min = forms.FloatField(
         help_text='Any float number in US dollars. Set to 0 to not pay for waiting. Then the earnings will not '
                   'be shown to a partiipant.')
@@ -34,6 +35,7 @@ class VignetteSettingsForm(forms.ModelForm):
         helper.form_method = 'post'
         helper.layout = Layout(
             Field("vignette", css_class=" form-control"),
+            Field("chat_instructions", css_class=" form-control"),
             Field('label', css_class=" form-control"),
             Field("yes_choice", css_class=" form-control"),
             Field("no_choice", css_class=" form-control"),

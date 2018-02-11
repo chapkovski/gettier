@@ -92,7 +92,8 @@ class Chats(DecisionPage):
 
         settings = json.loads(self.subsession.settings)
 
-        return {'vignette': settings['vignette'],
+        return {'chat_instructions': settings['chat_instructions'],
+            'vignette': settings['vignette'],
                 'min_chat_sec': settings['min_chat_sec']}
     def before_next_page(self):
         self.player.reach_payoff = Constants.reach_payoff

@@ -56,16 +56,27 @@ vignette_text = """ Bob has a friend, Jill, who has driven a Buick for many year
            aware that Jill has replaced it with a Pontiac, which is a different
            kind of American car."""
 
+chat_instructions = """
+You are now in a chat room with 
+a person who gave the opposite answer to you.
+ Each player should try to convince the other player of his/her answer. 
+ After debating for (at most) 4 minutes, you will both be given a chance to change your original answer.
+  Player 1 should begin by explaining his/her answer to Player 2. For your reference, here is the original case:"""
+
 
 class SettingsMod(SingletonModel):
-    label = models.CharField(verbose_name='Question for vignette',
-                             default='Does Bob know that Jill drives an American car? ')
-    vignette = models.CharField(verbose_name='Vignette text',
-                                widget=djmodels.TextField,
-                                initial=" ".join(vignette_text.split())
-                                )
-    yes_choice = models.CharField(verbose_name='Text for \'Yes\' answer', default='Yes, he knows it')
-    no_choice = models.CharField(verbose_name='Text for \'No\' answer', default='No, he does not know it')
+    label = models.StringField(verbose_name='Question for vignette',
+                               default='Does Bob know that Jill drives an American car? ')
+    vignette = models.StringField(verbose_name='Vignette text',
+                                  widget=djmodels.TextField,
+                                  initial=" ".join(vignette_text.split())
+                                  )
+    chat_instructions = models.StringField(verbose_name='Instructions for chat',
+                                  widget=djmodels.TextField,
+                                  initial=" ".join(chat_instructions.split())
+                                  )
+    yes_choice = models.StringField(verbose_name='Text for \'Yes\' answer', default='Yes, he knows it')
+    no_choice = models.StringField(verbose_name='Text for \'No\' answer', default='No, he does not know it')
     min_chat_sec = models.IntegerField(verbose_name='Minimum time on chat page, in seconds', default=60)
     max_chat_sec = models.IntegerField(verbose_name='Maximum time on chat page, in seconds', default=300)
     pay_per_min = models.FloatField(verbose_name='How much a person earned for minute of waiting',
@@ -77,7 +88,7 @@ class SettingsMod(SingletonModel):
         af = self._meta.get_fields()
         dicttoret = dict()
         for i in af:
-            dicttoret[i.name] = getattr(self,i.name)
+            dicttoret[i.name] = getattr(self, i.name)
         return dicttoret
 
 
@@ -106,7 +117,6 @@ class Subsession(BaseSubsession):
             p.vars['choices_order'] = curch
         for p in self.get_players():
             p.choices_order = p.participant.vars['choices_order']
-
 
 
 class Group(BaseGroup):
