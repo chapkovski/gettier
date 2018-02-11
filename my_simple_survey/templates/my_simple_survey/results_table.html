@@ -21,6 +21,13 @@
         </tr>
     {% endif %}
 
+            {% if group.words_exchanged > 0 %}
+        <tr>
+            <th>Number of words you exchanged with your partner:</th>
+            <td>{{ group.words_exchanged}}</td>
+        </tr>
+    {% endif %}
+
         {% if player.chat_earnings > 0 %}
         <tr>
             <th>Your  bonus for participation in chat:</th>

@@ -40,6 +40,7 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
+    words_exchanged=models.IntegerField()
     def set_chat_payoff(self):
         settings = json.loads(self.subsession.settings)
         pay_per_word = settings['pay_per_word']
@@ -47,6 +48,7 @@ class Group(BaseGroup):
         allchatmessages = ChatMessage.objects.filter(participant__in=participants).values_list('body', flat=True)
         flatten_m = ' '.join(allchatmessages).split()
         lwords = len(flatten_m)
+        self.words_exchanged=lwords
         Player.objects.filter(group=self).update(chat_earnings=lwords * pay_per_word)
 
 
