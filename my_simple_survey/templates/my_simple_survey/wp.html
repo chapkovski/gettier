@@ -3,11 +3,17 @@
 {% block title %}{{ title_text }}{% endblock %}
 {% block content %}
 
-    <p>
-        In the next stage of this study, you will chat with a participant who gave a different answer than you. Attempt
-        to
-        convince the other person of your answer .
-    </p>
+    <div class="card">
+        <div class="card-body">
+            In the next stage of this study you will chat with a participant who provided the opposite response to the
+            question you just answered. Only one of you gave the correct answer. If both of you agree on the correct
+            answer
+            after discussion, each of you will get a bonus of $1. So try to find the correct answer in dialogue with the
+            other participant.
+        </div>
+    </div>
+
+
 
 
 
@@ -15,7 +21,7 @@
         Please wait for the other participant to join the chat room. {% if view.pay_per_min > 0 %}
         You are earning {{ view.pay_per_min|c }} per minute spent on this waiting
         page. So far, you have earned <span class="timers "
-                                             id="sec_earned_span"></span> for waiting
+                                            id="sec_earned_span"></span> for waiting
         <span class=" timers"
               id="sec_spent_span"></span> minutes.
 

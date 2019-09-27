@@ -6,9 +6,13 @@
 {% endblock %}
 
 {% block content %}
-       <p style="border:2px; border-style:solid; border-color:#000000; padding: 1em;">
-           {{ vignette }}
-       </p>
+           <div class="card">
+        <div class="card-body">
+
+            {{ vignette }}
+
+        </div>
+    </div>
     <br>
         {% formfield player.is_it_knowledge with label=label %}
      {% formfield player.confidence with label="How confident you are in your answer?"%}

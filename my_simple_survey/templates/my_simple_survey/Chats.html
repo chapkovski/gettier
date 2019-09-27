@@ -7,24 +7,28 @@
 {% endblock %}
 
 {% block content %}
-    {%  if pay_per_word > 0 %}
-    <div class="alert alert-primary" role="alert">
-        You earn {{ pay_per_word|c }} in bonus pay for each word of <strong>meaningful</strong> conversation with your
-        partner about the case.
-        Your chat will be reviewed by the experimenter to make sure that both partners are contributing to the
-        discussion. Participants who do not contribute meaningfully will not be paid this bonus.
-    </div>
+    {% if pay_per_word > 0 %}
+        <div class="alert alert-primary" role="alert">
+            You earn {{ pay_per_word|c }} in bonus pay for each word of <strong>meaningful</strong> conversation with
+            your
+            partner about the case.
+            Your chat will be reviewed by the experimenter to make sure that both partners are contributing to the
+            discussion. Participants who do not contribute meaningfully will not be paid this bonus.
+        </div>
     {% endif %}
 
     <p> {{ chat_instructions }}</p>
-    <p style="border:2px; border-style:solid; border-color:#000000; padding: 1em;">
-        {{ vignette }}
-        <br><br>
-        <b>
-            Does Bob know that Jill drives an American car?
-        </b>
-    </p>
-    <br>
+    <div class="card my-3" >
+        <div class="card-body">
+
+            {{ vignette }}
+            <br><br>
+            <b>
+                Does Bob know that Jill drives an American car?
+            </b>
+        </div>
+    </div>
+
     Use this chat box to talk to the other player:
     {% chat %}
 
