@@ -19,38 +19,14 @@ else:
 SECRET_KEY = 'ss&7jxiw%)56%bnks==zqu*n3d0=jauj5t53p+2ig7t)l6+2)e'
 
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Rather than hardcoding the DB parameters here,
-        # it's recommended to set the DATABASE_URL environment variable.
-        # This will allow you to use SQLite locally, and postgres/mysql
-        # on the server
-        # Examples:
-        # export DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/NAME
-        # export DATABASE_URL=mysql://USER:PASSWORD@HOST:PORT/NAME
 
-        # fall back to SQLite if the DATABASE_URL env var is missing
-        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-    )
-}
-
-# AUTH_LEVEL:
-# this setting controls which parts of your site are freely accessible,
-# and which are password protected:
-# - If it's not set (the default), then the whole site is freely accessible.
-# - If you are launching a study and want visitors to only be able to
-#   play your app if you provided them with a start link, set it to STUDY.
-# - If you would like to put your site online in public demo mode where
-#   anybody can play a demo version of your game, but not access the rest
-#   of the admin interface, set it to DEMO.
 
 # for flexibility, you can set it in the environment variable OTREE_AUTH_LEVEL
 AUTH_LEVEL = 'STUDY'
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = 'simon_;'
-
+ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
 # setting for integration with AWS Mturk
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
@@ -70,7 +46,6 @@ LANGUAGE_CODE = 'en'
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree',   'crispy_forms',]
 
-# SENTRY_DSN = ''
 
 DEMO_PAGE_INTRO_TEXT = """
 <ul>
@@ -160,6 +135,4 @@ SESSION_CONFIGS = [
     },
     ]
 
-# anything you put after the below line will override
-# oTree's default settings. Use with caution.
-otree.settings.augment_settings(globals())
+
