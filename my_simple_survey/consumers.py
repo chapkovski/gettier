@@ -1,6 +1,5 @@
-# from channels import Group
-from channels.generic.websocket import WebsocketConsumer, JsonWebsocketConsumer
-from .models import Player, Constants
+from channels.generic.websocket import JsonWebsocketConsumer
+from .models import Player, Group
 import json, datetime
 from asgiref.sync import async_to_sync
 
@@ -22,6 +21,9 @@ class ChatWatcher(JsonWebsocketConsumer):
     def get_group_name(self, group_id):
         return 'chatwatcher{}'.format(group_id)
 
+    def get_group(self):
+        return Group.objects.get(pk=self.otree_group)
+
     def clean_kwargs(self, kwargs):
         self.otree_group = kwargs['group']
         self.player = kwargs['player']
@@ -29,6 +31,9 @@ class ChatWatcher(JsonWebsocketConsumer):
 
     def receive_json(self, content, **kwargs):
         if content.get('type') == 'out':
+            gr = self.get_group()
+            gr.both_partners_in_chat = False
+            gr.save()
             async_to_sync(self.channel_layer.group_send)(
                 self.get_group_name(self.otree_group),
                 {

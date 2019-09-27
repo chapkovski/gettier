@@ -83,8 +83,14 @@ class GroupingWaitPage(WaitPage):
                 l.save()
             return losers
 
+    def after_all_players_arrive(self):
+        self.group.both_partners_in_chat = True
+
 
 class Chats(DecisionPage):
+    def is_displayed(self):
+        return self.group.both_partners_in_chat
+
     # def get_timeout_seconds(self):
     #     settings = json.loads(self.subsession.settings)
     #     return settings['max_chat_sec']

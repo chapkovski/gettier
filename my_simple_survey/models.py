@@ -42,7 +42,7 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
     words_exchanged = models.IntegerField()
-
+    both_partners_in_chat = models.BooleanField()
     def set_chat_payoff(self):
         settings = json.loads(self.subsession.settings)
         pay_per_word = settings['pay_per_word']
