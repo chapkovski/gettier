@@ -4,7 +4,7 @@
             <div class="centercontainer">
                 {% for i in choices %}
                     <div>
-                        <label for="{{ attrs.id }}_{{ forloop.counter }}">{{ i.1 }}</label>
+                        <label for="{{ attrs.id|default:None }}_{{ forloop.counter }}">{{ i.1 }}</label>
                     </div>
                 {% endfor %}
             </div>

@@ -129,7 +129,7 @@ class Subsession(BaseSubsession):
             random.shuffle(curch)
             p.vars['choices_order'] = curch
         for p in self.get_players():
-            p.choices_order = p.participant.vars['choices_order']
+            p.choices_order = json.dumps(p.participant.vars['choices_order'])
 
 
 class Group(BaseGroup):

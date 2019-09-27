@@ -9,7 +9,7 @@ import json
 
 from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit, Field

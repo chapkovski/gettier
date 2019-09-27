@@ -16,6 +16,7 @@ class SkipPage(Page):
 
 
 class GroupingWaitPage(WaitPage):
+    _allow_custom_attributes = True
     body_text = 'Waiting for another participant...'
     group_by_arrival_time = True
     template_name = 'my_simple_survey/wp.html'
@@ -24,24 +25,25 @@ class GroupingWaitPage(WaitPage):
     pay_per_min = .1
     wait_before_leave = 30
 
-    def dispatch(self, *args, **kwargs):
-        super().dispatch(*args, **kwargs)
-        if self.request.method == 'POST':
-            end_of_game = self.request.POST.dict().get('endofgame')
-            if end_of_game is not None:
-                models.Player.objects.filter(pk=self.player.pk).update(early_finish=True)
-        response = super().dispatch(*args, **kwargs)
-        return response
+    # def dispatch(self, *args, **kwargs):
+    #     super().dispatch(*args, **kwargs)
+    #     if self.request.method == 'POST':
+    #         end_of_game = self.request.POST.dict().get('endofgame')
+    #         if end_of_game is not None:
+    #             models.Player.objects.filter(pk=self.player.pk).update(early_finish=True)
+    #     response = super().dispatch(*args, **kwargs)
+    #     return response
 
     def record_secs_waited(self, p):
-        p.sec_spent = (
-            datetime.datetime.now(datetime.timezone.utc) - p.wp_timer_start).total_seconds()
+        p.sec_spent = int((
+                datetime.datetime.now(datetime.timezone.utc) - p.wp_timer_start).total_seconds())
 
-        p.sec_earned = round(p.sec_spent / 60 * self.pay_per_min, 2)
+        p.sec_earned = int(round(p.sec_spent / 60 * self.pay_per_min, 2))
 
     def is_displayed(self):
         if self.player.early_finish:
             return False
+        self._is_frozen = False
         self.settings = json.loads(self.subsession.settings)
         self.pay_per_min = self.settings.get('pay_per_min', self.pay_per_min)
         self.wait_before_leave = self.settings.get('wait_before_leave', self.wait_before_leave)

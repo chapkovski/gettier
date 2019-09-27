@@ -1,16 +1,21 @@
-from channels import Group
-from channels.generic.websockets import WebsocketConsumer
-from .models import Player, Group as OtreeGroup, Constants
+# from channels import Group
+from channels.generic.websocket import WebsocketConsumer, JsonWebsocketConsumer
+from .models import Player, Constants
 import json, datetime
+from asgiref.sync import async_to_sync
 
 
-class ChatWatcher(WebsocketConsumer):
+class ChatWatcher(JsonWebsocketConsumer):
     url_pattern = (
-        r'^/chatwatcher' +
-        '/group/(?P<group>[0-9]+)' +
-        '/participant/(?P<participant_code>[a-zA-Z0-9_-]+)' +
-        '/player/(?P<player>[0-9]+)' +
-        '$')
+            r'^/chatwatcher' +
+            '/group/(?P<group>[0-9]+)' +
+            '/participant/(?P<participant_code>[a-zA-Z0-9_-]+)' +
+            '/player/(?P<player>[0-9]+)' +
+            '$')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.groups += [self.get_group_name()]
 
     def get_group_name(self, group_id):
         return 'chatwatcher{}'.format(group_id)
@@ -46,18 +51,30 @@ class ChatWatcher(WebsocketConsumer):
         self.clean_kwargs(kwargs)
         msg = json.loads(text)
         if self.is_over(msg):
-            Group(self.get_group_name(kwargs['group'])).send(
-                {'text': json.dumps({'over': True})})
+            async_to_sync(self.channel_layer.group_send)(
+                self.get_group_name(self.otree_group),
+                {
+                    "type": "chat.message",
+                    "text": json.dumps({'over': True}),
+                },
+            )
 
     def connect(self, message, **kwargs):
+        super().connect()
         print('im connected')
+
         self.make_a_stamp('connected')
         content = {'accept': True}
+        async_to_sync(self.channel_layer.group_send)(
+            self.get_group_name(self.otree_group),
+            {
+                "type": "chat.message",
+                "text": json.dumps(
+                    {'togr': 'message to group from participant {}'.format(kwargs['participant_code'])})
+            },
 
-        Group('chatwatcher{}'.format(kwargs['group'])).send(
-            {'text': json.dumps(
-                {'togr': 'message to group from participant {}'.format(kwargs['participant_code'])})}
         )
+
         self.message.reply_channel.send({'text': json.dumps(content)})
         return super().connect(message, **kwargs)
 
