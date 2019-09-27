@@ -100,7 +100,7 @@ class Chats(DecisionPage):
 
         return {'chat_instructions': settings['chat_instructions'],
                 'vignette': settings['vignette'],
-                'min_chat_sec': settings['min_chat_sec'],
+                'min_chat_sec': 0,
                 'pay_per_word': settings['pay_per_word'],
                 'user_answer': user_answer,
                 'another_answer': another_answer}

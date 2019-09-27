@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-        <div class="card my-3 text-white bg-primary">
+    <div class="card my-3 text-white bg-primary">
         <div class="card-body">
 
             {{ vignette }}
@@ -44,8 +44,9 @@
 
 
     Use this chat box to talk to the other player:
-    {% chat %}
-
+    <div class="my-3">
+        {% chat %}
+    </div>
 
     <button class="otree-btn-next btn btn-danger">Finish chat</button>
     {% include 'my_simple_survey/includes/end_chat_modal.html' %}

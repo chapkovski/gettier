@@ -21,8 +21,7 @@ SECRET_KEY = 'ss&7jxiw%)56%bnks==zqu*n3d0=jauj5t53p+2ig7t)l6+2)e'
 
 
 
-# for flexibility, you can set it in the environment variable OTREE_AUTH_LEVEL
-AUTH_LEVEL = 'STUDY'
+
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
