@@ -15,23 +15,15 @@ class ChatWatcher(JsonWebsocketConsumer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.groups += [self.get_group_name()]
+        self.kwargs = self.scope['url_route']['kwargs']
 
     def get_group_name(self, group_id):
         return 'chatwatcher{}'.format(group_id)
 
-    def connection_groups(self, **kwargs):
-        """
-        Called to return the list of groups to automatically add/remove
-        this connection to/from.
-        """
-
-        return [self.get_group_name(kwargs['group'])]
-
     def clean_kwargs(self, kwargs):
-        self.otree_group = self.kwargs['group']
-        self.player = self.kwargs['player']
-        self.participant = self.kwargs['participant_code']
+        self.otree_group = kwargs['group']
+        self.player = kwargs['player']
+        self.participant = kwargs['participant_code']
 
     def is_over(self, msg):
         if msg['type'] == 'checking':
@@ -48,7 +40,7 @@ class ChatWatcher(JsonWebsocketConsumer):
         return False
 
     def receive(self, text=None, bytes=None, **kwargs):
-        self.clean_kwargs(kwargs)
+        self.clean_kwargs(self.kwargs)
         msg = json.loads(text)
         if self.is_over(msg):
             async_to_sync(self.channel_layer.group_send)(
@@ -59,10 +51,12 @@ class ChatWatcher(JsonWebsocketConsumer):
                 },
             )
 
-    def connect(self, message, **kwargs):
+    def connect(self):
         super().connect()
         print('im connected')
-
+        self.clean_kwargs(self.kwargs)
+        self.groups += [self.get_group_name(self.otree_group)]
+        #
         self.make_a_stamp('connected')
         content = {'accept': True}
         async_to_sync(self.channel_layer.group_send)(
@@ -70,13 +64,12 @@ class ChatWatcher(JsonWebsocketConsumer):
             {
                 "type": "chat.message",
                 "text": json.dumps(
-                    {'togr': 'message to group from participant {}'.format(kwargs['participant_code'])})
+                    {'togr': 'message to group from participant {}'.format(self.participant)})
             },
 
         )
-
-        self.message.reply_channel.send({'text': json.dumps(content)})
-        return super().connect(message, **kwargs)
+        #
+        # self.message.reply_channel.send({'text': json.dumps(content)})
 
     def make_a_stamp(self, status):
         p = Player.objects.get(pk=self.kwargs['player'])
