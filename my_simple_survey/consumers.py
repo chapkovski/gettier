@@ -16,6 +16,8 @@ class ChatWatcher(JsonWebsocketConsumer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.kwargs = self.scope['url_route']['kwargs']
+        self.clean_kwargs(self.kwargs)
+        self.groups = [self.get_group_name(self.otree_group)]
 
     def get_group_name(self, group_id):
         return 'chatwatcher{}'.format(group_id)
@@ -25,51 +27,36 @@ class ChatWatcher(JsonWebsocketConsumer):
         self.player = kwargs['player']
         self.participant = kwargs['participant_code']
 
-    def is_over(self, msg):
-        if msg['type'] == 'checking':
-            another_player = Player.objects.get(pk=self.player).get_others_in_group()[0]
-            if another_player.chat_status == 'disconnected':
-                disconnection_time = another_player.disconnected_timestamp
-                now = datetime.datetime.now(datetime.timezone.utc)
-                diff = (now - disconnection_time).total_seconds()
-                threshold_met = diff > Constants.threshold_sec
-                if threshold_met:
-                    return True
-        if msg['type'] == 'out':
-            return True
-        return False
-
-    def receive(self, text=None, bytes=None, **kwargs):
-        self.clean_kwargs(self.kwargs)
-        msg = json.loads(text)
-        if self.is_over(msg):
+    def receive_json(self, content, **kwargs):
+        if content.get('type') == 'out':
             async_to_sync(self.channel_layer.group_send)(
                 self.get_group_name(self.otree_group),
                 {
-                    "type": "chat.message",
-                    "text": json.dumps({'over': True}),
+                    "type": "is_over",
+                    "text": f"Participant {self.participant} left the chat",
                 },
             )
 
     def connect(self):
         super().connect()
-        print('im connected')
-        self.clean_kwargs(self.kwargs)
-        self.groups += [self.get_group_name(self.otree_group)]
-        #
         self.make_a_stamp('connected')
         content = {'accept': True}
         async_to_sync(self.channel_layer.group_send)(
             self.get_group_name(self.otree_group),
             {
-                "type": "chat.message",
-                "text": json.dumps(
-                    {'togr': 'message to group from participant {}'.format(self.participant)})
-            },
-
+                "type": "new_member_connected",
+                "text": f"Participant {self.participant} connected"
+            }
         )
-        #
-        # self.message.reply_channel.send({'text': json.dumps(content)})
+
+        self.send_json({'text': json.dumps(content)})
+
+    def is_over(self, event):
+        print(event['text'])
+        self.send_json({'over': True})
+
+    def new_member_connected(self, event):
+        print(f"{event['type']}:: {event['text']}")
 
     def make_a_stamp(self, status):
         p = Player.objects.get(pk=self.kwargs['player'])
