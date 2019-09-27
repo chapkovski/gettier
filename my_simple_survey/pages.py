@@ -36,7 +36,7 @@ class GroupingWaitPage(WaitPage):
 
     def record_secs_waited(self, p):
         p.sec_spent = int((
-                datetime.datetime.now(datetime.timezone.utc) - p.wp_timer_start).total_seconds())
+                                  datetime.datetime.now(datetime.timezone.utc) - p.wp_timer_start).total_seconds())
 
         p.sec_earned = int(round(p.sec_spent / 60 * self.pay_per_min, 2))
 
@@ -90,14 +90,20 @@ class Chats(DecisionPage):
     #     return settings['max_chat_sec']
 
     def vars_for_template(self):
-        # award bonus to anyone who makes it this far
+        p = self.participant
+        partner = self.player.other.participant
+        choices = dict(p.vars['choices_order'])
+        user_answer = choices[p.vars['is_it_knowledge']]
+        another_answer = choices[partner.vars['is_it_knowledge']]
 
         settings = json.loads(self.subsession.settings)
 
         return {'chat_instructions': settings['chat_instructions'],
                 'vignette': settings['vignette'],
                 'min_chat_sec': settings['min_chat_sec'],
-                'pay_per_word': settings['pay_per_word'], }
+                'pay_per_word': settings['pay_per_word'],
+                'user_answer': user_answer,
+                'another_answer': another_answer}
 
     def before_next_page(self):
         self.player.reach_payoff = Constants.reach_payoff

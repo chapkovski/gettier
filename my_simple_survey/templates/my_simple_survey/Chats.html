@@ -7,18 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if pay_per_word > 0 %}
-        <div class="alert alert-primary" role="alert">
-            You earn {{ pay_per_word|c }} in bonus pay for each word of <strong>meaningful</strong> conversation with
-            your
-            partner about the case.
-            Your chat will be reviewed by the experimenter to make sure that both partners are contributing to the
-            discussion. Participants who do not contribute meaningfully will not be paid this bonus.
-        </div>
-    {% endif %}
-
-    <p> {{ chat_instructions }}</p>
-    <div class="card my-3" >
+        <div class="card my-3 text-white bg-primary">
         <div class="card-body">
 
             {{ vignette }}
@@ -28,6 +17,31 @@
             </b>
         </div>
     </div>
+    <div class="card my-3">
+        <div class="card-body">
+            <h5 class="card-title">Instructions:</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    In the first stage of this study, you responded that
+                    <span class="lead font-italic"> "{{ user_answer }}"</span>.
+                    In the next stage of this
+                    study, you
+                    will discuss the question with a participant who responded
+                    <span class="lead font-italic"> "{{ another_answer }}"</span>.
+                </li>
+                <li class="list-group-item">
+                    Either your response or your partner's responses is incorrect. The aim of your discussion is to
+                    discover who gave the correct response and who gave the incorrect response. After discussion, you
+                    and your partner will both be given the opportunity to switch your response if you wish.
+                </li>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+
 
     Use this chat box to talk to the other player:
     {% chat %}

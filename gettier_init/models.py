@@ -138,7 +138,8 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     choices_order = models.StringField()
-    is_it_knowledge = models.BooleanField(verbose_name='Does Bob know that Jill drives an American car? ')
+    is_it_knowledge = models.BooleanField(verbose_name='Does Bob know that Jill drives an American car? ',
+                                          widget=widgets.RadioSelect)
     confidence = models.IntegerField(
         choices=CONFIDENCE_CHOICES,
         widget=LikertWidget,

@@ -8,6 +8,7 @@ from otree.models_concrete import ChatMessage
 from django.db import models as djmodels
 from gettier_init.models import CONFIDENCE_CHOICES
 from gettier_init.widgets import LikertWidget
+
 author = 'Simon Cullen, Philipp Chapkovski'
 
 doc = """
@@ -40,7 +41,8 @@ class Subsession(BaseSubsession):
 
 
 class Group(BaseGroup):
-    words_exchanged=models.IntegerField()
+    words_exchanged = models.IntegerField()
+
     def set_chat_payoff(self):
         settings = json.loads(self.subsession.settings)
         pay_per_word = settings['pay_per_word']
@@ -48,7 +50,7 @@ class Group(BaseGroup):
         allchatmessages = ChatMessage.objects.filter(participant__in=participants).values_list('body', flat=True)
         flatten_m = ' '.join(allchatmessages).split()
         lwords = len(flatten_m)
-        self.words_exchanged=lwords
+        self.words_exchanged = lwords
         Player.objects.filter(group=self).update(chat_earnings=lwords * pay_per_word)
 
 
@@ -56,7 +58,6 @@ GETTIER_CHOICES = (
     ('True', 'Yes, Bob knows that Jill drives an American car'),
     ('False', 'No, Bob does not know that Jill drives an American car'),
 )
-
 
 YESNO_CHOICES = (
     ('True', 'Yes, I have read a story very similar to this one before.'),
@@ -111,30 +112,33 @@ class Player(BasePlayer):
     wp_passed = models.BooleanField(doc='checking if the player has already passed first wp page',
                                     initial=False)
     is_it_still_knowledge = models.StringField(choices=GETTIER_CHOICES,
-                                             verbose_name="""Does Bob know that Jill drives an American car?""",
-                                             widget=widgets.RadioSelect)
+                                               verbose_name="""Does Bob know that Jill drives an American car?""",
+                                               widget=widgets.RadioSelect)
 
     still_confidence = models.IntegerField(
         choices=CONFIDENCE_CHOICES,
         widget=LikertWidget,
-        )
-
+    )
 
     reason = models.TextField(blank=True,
                               verbose_name="""Please explain in 2-3 lines why you did or did not change
                                    your initial answer to this question""")
     experience = models.StringField(choices=YESNO_CHOICES,
-                                  verbose_name="""Have you ever read a story like the one in 
+                                    verbose_name="""Have you ever read a story like the one in 
                                       this experiment in any other context before?""",
-                                  widget=widgets.RadioSelect)
+                                    widget=widgets.RadioSelect)
     age = models.IntegerField(verbose_name="How old are you?", min=15, max=100)
     gender = models.StringField(choices=GENDER_CHOICES,
-                              verbose_name='What is your gender?')
+                                verbose_name='What is your gender?')
     race = models.StringField(choices=RACE_CHOICES,
-                            verbose_name='What is your race?',
-                            )
+                              verbose_name='What is your race?',
+                              )
     education = models.StringField(choices=EDUCATION_CHOICES,
-                                 verbose_name='What is the highest level of education you have achieved?')
+                                   verbose_name='What is the highest level of education you have achieved?')
 
     def set_payoff(self):
         self.payoff = self.reach_payoff + self.sec_earned + self.chat_earnings
+
+    @property
+    def other(self):
+        return self.get_others_in_group()[0]

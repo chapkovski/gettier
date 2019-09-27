@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-           <div class="card">
+    <div class="card text-white bg-primary my-3">
         <div class="card-body">
 
             {{ vignette }}
@@ -14,8 +14,8 @@
         </div>
     </div>
     <br>
-        {% formfield player.is_it_knowledge with label=label %}
-     {% formfield player.confidence with label="How confident you are in your answer?"%}
+    {% formfield player.is_it_knowledge with label=label %}
+    {% formfield player.confidence with label="How confident you are in your answer?" %}
 
     <br><br>
     {% next_button %}
