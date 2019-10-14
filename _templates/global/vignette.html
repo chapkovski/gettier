@@ -6,11 +6,14 @@
 {% endblock %}
 
 {% block content %}
+    {% with tag=False %}
 
-    <form action="" method="post">{% csrf_token %}
-        {% crispy form %}
 
-    </form>
+        <form action="" method="post">{% csrf_token %}
+            {% crispy form %}
+
+        </form>
+    {% endwith %}
 {% endblock %}
 
 {% block internal_styles %}

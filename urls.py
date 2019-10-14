@@ -1,4 +1,3 @@
-
 # from django.views.generic import TemplateView
 
 import gettier_init.pages as v
@@ -8,4 +7,5 @@ from django.conf.urls import url
 from otree.urls import urlpatterns
 from django.contrib.auth.decorators import login_required
 
-urlpatterns.append(url(r'^vignette$', login_required(v.VignetteView.as_view()), name='vignette_customization'),)
+# TODO: add login required if login is indeed required
+urlpatterns.append(url(r'^vignette$', v.VignetteView.as_view(), name='vignette_customization'), )

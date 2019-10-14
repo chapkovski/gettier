@@ -9,9 +9,9 @@
 {% block content %}
     <div class="card my-3 text-white bg-primary">
         <div class="card-body">
-
-            {{ vignette }}
-            <br><br>
+            {% autoescape off %}
+                {{ vignette }}
+            {% endautoescape %}
             <b>
                 Does Bob know that Jill drives an American car?
             </b>
@@ -30,9 +30,9 @@
                     <span class="lead font-italic"> "{{ another_answer }}"</span>.
                 </li>
                 <li class="list-group-item">
-                    Either your response or your partner's responses is incorrect. The aim of your discussion is to
-                    discover who gave the correct response and who gave the incorrect response. After discussion, you
-                    and your partner will both be given the opportunity to switch your response if you wish.
+                    {% autoescape off %}
+                        {{ chat_instructions }}
+                    {% endautoescape %}
                 </li>
 
             </ul>

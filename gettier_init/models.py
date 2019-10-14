@@ -4,7 +4,7 @@ from otree.api import (
 )
 from .widgets import LikertWidget
 from django.db import models as djmodels
-
+from markdown2 import markdown
 import json, random
 
 author = 'Simon Cullen, Philipp Chapkovski'
@@ -68,11 +68,9 @@ vignette_text = """ Bob has a friend, Jill, who has driven a Buick for many year
            kind of American car."""
 
 chat_instructions = """
-You are now in a chat room with 
-a person who gave the opposite answer to you.
- Each player should try to convince the other player of his/her answer. 
- After debating for (at most) 4 minutes, you will both be given a chance to change your original answer.
-  Player 1 should begin by explaining his/her answer to Player 2. For your reference, here is the original case:"""
+Either your response or your partner's responses is incorrect. The aim of your discussion is to
+                    discover who gave the correct response and who gave the incorrect response. After discussion, you
+                    and your partner will both be given the opportunity to switch your response if you wish."""
 
 
 class SettingsMod(SingletonModel):
@@ -102,6 +100,9 @@ class SettingsMod(SingletonModel):
         dicttoret = dict()
         for i in af:
             dicttoret[i.name] = getattr(self, i.name)
+        markdownfields = ['vignette', 'chat_instructions']
+        for m in markdownfields:
+            dicttoret[m] = markdown(dicttoret[m])
         return dicttoret
 
 
@@ -143,4 +144,4 @@ class Player(BasePlayer):
     confidence = models.IntegerField(
         choices=CONFIDENCE_CHOICES,
         widget=LikertWidget,
-        )
+    )
