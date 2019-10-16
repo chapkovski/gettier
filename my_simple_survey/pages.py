@@ -106,6 +106,7 @@ class Chats(DecisionPage):
 
         return {'chat_instructions': settings['chat_instructions'],
                 'vignette': settings['vignette'],
+                'question': settings['label'],
                 'min_chat_sec': 0,
                 'pay_per_word': settings['pay_per_word'],
                 'user_answer': user_answer,
