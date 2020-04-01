@@ -1,12 +1,11 @@
 import os
 from os import environ
 
-import dj_database_url
-
-import otree.settings
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets/'), ]
 
 EXTENSION_APPS = ['my_simple_survey']
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 ROOT_URLCONF = 'urls'
 # the environment variable OTREE_PRODUCTION controls whether Django runs in
 # DEBUG mode. If OTREE_PRODUCTION==1, then DEBUG=False
@@ -18,11 +17,6 @@ else:
 # don't share this with anybody.
 SECRET_KEY = 'ss&7jxiw%)56%bnks==zqu*n3d0=jauj5t53p+2ig7t)l6+2)e'
 
-
-
-
-
-
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
 ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
@@ -31,21 +25,26 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 AWS_ACCESS_KEY_ID = environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = environ.get('AWS_SECRET_ACCESS_KEY')
 
-
 # e.g. EUR, CAD, GBP, CHF, CNY, JPY
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = False
-
-
 
 # e.g. en, de, fr, it, ja, zh-hans
 # see: https://docs.djangoproject.com/en/1.9/topics/i18n/#term-language-code
 LANGUAGE_CODE = 'en'
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
-INSTALLED_APPS = ['otree',   'crispy_forms',]
-
-
+INSTALLED_APPS = [
+    'otree',
+    'crispy_forms',
+    'webpack_loader'
+]
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
 DEMO_PAGE_INTRO_TEXT = """
 <ul>
     <li>
@@ -77,7 +76,6 @@ ROOMS = [
     },
 ]
 
-
 mturk_hit_settings = {
     'keywords': ['bonus', 'study', 'survey', 'experiment'],
     'title': 'Psychology Experiment',
@@ -85,17 +83,17 @@ mturk_hit_settings = {
     'frame_height': 500,
     'preview_template': 'global/MTurkPreview.html',
     'minutes_allotted_per_assignment': 5,
-    'expiration_hours': 5 , # 5 hours
-    'grant_qualification_id': '3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3', # uncomment to prevent retakes (live)
+    'expiration_hours': 5,  # 5 hours
+    'grant_qualification_id': '3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3',  # uncomment to prevent retakes (live)
     # 'grant_qualification_id': '3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG', # uncomment to prevent retakes (sandbox)
 
     'qualification_requirements': [
-        { # qualification 1: prevent retakes
-             'QualificationTypeId': "3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3", # uncomment for live version
-          #  'QualificationTypeId': "3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG", # uncomment for sandbox version
+        {  # qualification 1: prevent retakes
+            'QualificationTypeId': "3CGA0BEV5WTPG8BZF5JS6FIHGOF6P3",  # uncomment for live version
+            #  'QualificationTypeId': "3RKPNJXSGKRQ6FK6D45DFQ8YI6EESG", # uncomment for sandbox version
             'Comparator': "DoesNotExist",
         },
-        { # qualification 2: US only (same for live and sandbox)
+        {  # qualification 2: US only (same for live and sandbox)
             'QualificationTypeId': "00000000000000000071",
             'Comparator': "EqualTo",
             'LocaleValues': [{'Country': "US"}],
@@ -109,7 +107,6 @@ mturk_hit_settings = {
     ]
 }
 
-
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.
 # the session config can be accessed from methods in your apps as self.session.config,
@@ -117,7 +114,7 @@ mturk_hit_settings = {
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 0.00,
-   # 'participation_fee': 0.15,
+    # 'participation_fee': 0.15,
     'participation_fee': 0.10,
     'doc': "",
     'mturk_hit_settings': mturk_hit_settings,
@@ -132,6 +129,4 @@ SESSION_CONFIGS = [
         'app_sequence': ['gettier_init', 'my_simple_survey'],
         'chat_seconds': 120,
     },
-    ]
-
-
+]

@@ -11,44 +11,12 @@ from django.views.generic.edit import UpdateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, ButtonHolder, Submit, Field
+
 
 
 class VignetteSettingsForm(forms.ModelForm):
-    vignette = forms.CharField(widget=forms.Textarea)
-    chat_instructions = forms.CharField(widget=forms.Textarea)
-    pay_per_min = forms.FloatField(
-        help_text='Any float number in US dollars. Set to 0 to not pay for waiting. Then the earnings will not '
-                  'be shown to a partiipant.')
-    wait_before_leave = forms.IntegerField(help_text='Number in seconds.'
-                                                   'Set to negative number to switch off the option to leaver earlier.')
+    pass
 
-    class Meta:
-        model = models.SettingsMod
-        fields = '__all__'
-
-    @property
-    def helper(self):
-        helper = FormHelper()
-        helper.form_id = 'id-personal-data-form'
-        helper.form_method = 'post'
-        helper.layout = Layout(
-            Field("vignette", css_class=" form-control"),
-            Field("chat_instructions", css_class=" form-control"),
-            Field('label', css_class=" form-control"),
-            Field("yes_choice", css_class=" form-control"),
-            Field("no_choice", css_class=" form-control"),
-            Field("min_chat_sec", css_class=" form-control"),
-            Field("max_chat_sec", css_class=" form-control"),
-            Field("pay_per_min", css_class=" form-control"),
-            Field("pay_per_word", css_class=" form-control"),
-            Field("wait_before_leave", css_class=" form-control"),
-            ButtonHolder(
-                Submit('submit', 'Save', css_class='btn btn-success filkinbtn')
-            )
-        )
-        return helper
 
 
 class VignetteView(UpdateView):

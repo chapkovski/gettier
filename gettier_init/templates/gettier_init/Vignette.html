@@ -1,11 +1,13 @@
 {% extends "global/Page.html" %}
 {% load staticfiles otree_tags %}
-
+{% load render_bundle from webpack_loader %}
 {% block title %}
     Please consider the following scenario
 {% endblock %}
 
 {% block content %}
+    <div id="react-app"></div>
+    {% render_bundle 'main' 'js' %}
     <div class="card text-white bg-primary my-3">
         <div class="card-body">
             {% autoescape off %}
@@ -21,4 +23,8 @@
 
     <br><br>
     {% next_button %}
+{% endblock %}
+
+{% block scripts %}
+      {% render_bundle 'main' 'css' %}
 {% endblock %}
